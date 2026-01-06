@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Profile | GX International</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            <img src="img/logo.png" alt="GX International logo" class="logo-img">
+            <span class="logo-text">GX INTERNATIONAL</span>
+        </a>
+        
+        <div class="menu-toggle" id="mobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-wrapper" id="navWrapper">
+            <nav>
+                <a href="#" class="nav-link" data-section="profile">Profile</a>
+                <a href="#" class="nav-link" data-section="products">Products</a>
+                <a href="#" class="nav-link" data-section="contacts">Contacts</a>
+            </nav>
+            <a href="#" class="btn-login" id="loginBtn">Login</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="card profile-sidebar">
+            <img src="profile.jpg" class="avatar">
+            <h2>Ghanel Bianca Lovendino</h2>
+            <p class="role-title">Sales Service Executive</p>
+            <div class="location-badge">Daraga, Albay</div>
+        </aside>
+
+        <main id="mainContent">
+            <div class="card">
+                <h3>Performance Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <strong class="stat-val">$2.4M</strong>
+                        <small>Q4 Revenue</small>
+                    </div>
+                    <div class="stat-item">
+                        <strong class="stat-val">14</strong>
+                        <small>Active Accounts</small>
+                    </div>
+                    <div class="stat-item">
+                        <strong class="stat-val">98%</strong>
+                        <small>Retention</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Executive Summary</h3>
+                <p class="summary-text">
+                    Strategic sales leader focused on the GX International service portfolio. 
+                    Expertise includes high-value account management and cross-border 
+                    compliance for global enterprise clients.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <div class="login-container">
+                <h2>GX International Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn-submit">Sign In</button>
+                </form>
+                <p class="signup-link">Don't have an account? <a href="#">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
