@@ -318,13 +318,18 @@ nav a {
 
 /* Contact styles */
 .contact-card h3 { margin-bottom: 18px; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+.contact-grid { display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
 .contact-details { padding-right: 6px; }
 .contact-intro { color: var(--text-muted); margin-bottom: 12px; }
-.contact-item { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-.contact-item strong { color: var(--gx-navy); font-weight: 700; }
-.contact-item a, .contact-item span { color: var(--text-main); text-decoration: none; }
-.contact-actions { display: flex; gap: 10px; margin-top: 12px; }
+.contact-item { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
+.contact-icon { width: 44px; height: 44px; border-radius: 8px; background: rgba(56,189,248,0.12); display: flex; align-items: center; justify-content: center; color: var(--gx-accent); flex-shrink: 0; }
+.contact-body strong { color: var(--gx-navy); font-weight: 700; display: block; }
+.contact-body a, .contact-body span { color: var(--text-main); text-decoration: none; display: block; }
+.contact-panel { display: flex; align-items: start; justify-content: center; }
+.company-card { background: linear-gradient(180deg, #ffffff, #fbfeff); border: 1px solid #e6eef5; padding: 18px; border-radius: 10px; width: 100%; text-align: center; box-shadow: 0 6px 18px rgba(2,6,23,0.06); }
+.contact-logo { width: 88px; height: auto; margin-bottom: 12px; }
+.contact-panel-text { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; }
+.contact-ctas { display: flex; gap: 10px; justify-content: center; }
 .btn-primary { background: var(--gx-accent); color: var(--gx-navy); padding: 8px 14px; border-radius: 8px; font-weight: 700; text-decoration: none; }
 .btn-outline { background: transparent; border: 1px solid #e2e8f0; color: var(--text-main); padding: 8px 12px; border-radius: 8px; text-decoration: none; }
 
@@ -337,6 +342,7 @@ nav a {
 @media (max-width: 768px) {
     .contact-grid { grid-template-columns: 1fr; }
     .contact-card { padding-bottom: 6px; }
+    .contact-panel { order: 2; }
 }
 
 /* Image gallery (replaces old lightbox) */

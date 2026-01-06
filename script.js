@@ -148,23 +148,54 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="contact-intro">Reach out to us — we're happy to assist.</p>
 
                         <div class="contact-item">
-                            <strong>Address</strong>
-                            <span>Daraga, Albay, Philippines</span>
+                            <div class="contact-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"/></svg>
+                            </div>
+                            <div class="contact-body">
+                                <strong>Address</strong>
+                                <span>Daraga, Albay, Philippines</span>
+                            </div>
                         </div>
 
                         <div class="contact-item">
-                            <strong>Phone</strong>
-                            <a href="tel:+639381236488">+63 9381236488</a>
+                            <div class="contact-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79a15.091 15.091 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 21.5 2.5 13.93 2.5 4a1 1 0 011-1H7a1 1 0 011 1c0 1.24.2 2.45.57 3.57.14.36.04.77-.24 1.01l-2.2 2.21z" fill="currentColor"/></svg>
+                            </div>
+                            <div class="contact-body">
+                                <strong>Phone</strong>
+                                <a href="tel:+639381236488">+63 9381236488</a>
+                            </div>
                         </div>
 
                         <div class="contact-item">
-                            <strong>Email</strong>
-                            <a>gblovendino.gxii@gmail.com</a>
+                            <div class="contact-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5L4 8V6l8 5 8-5v2z" fill="currentColor"/></svg>
+                            </div>
+                            <div class="contact-body">
+                                <strong>Email</strong>
+                                <a href="mailto:gblovendino.gxii@gmail.com">gblovendino.gxii@gmail.com</a>
+                            </div>
                         </div>
 
                         <div class="contact-item">
-                            <strong>Facebook</strong>
-                            <a href="https://www.facebook.com/ghanel.bianca.22" target="_blank" rel="noopener">Ghanel Bianca B. Lovendino</a>
+                            <div class="contact-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07C2 17.09 5.66 21.28 10.44 22v-7.03H8.08v-2.9h2.36V9.98c0-2.33 1.38-3.61 3.5-3.61.99 0 2.03.18 2.03.18v2.23h-1.14c-1.12 0-1.47.7-1.47 1.41v1.71h2.5l-.4 2.9h-2.1V22C18.34 21.28 22 17.09 22 12.07z" fill="currentColor"/></svg>
+                            </div>
+                            <div class="contact-body">
+                                <strong>Facebook</strong>
+                                <a href="https://www.facebook.com/ghanel.bianca.22" target="_blank" rel="noopener">Ghanel Bianca B. Lovendino</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-panel">
+                        <div class="company-card">
+                            <img src="img/logo.png" alt="GX logo" class="contact-logo">
+                            <p class="contact-panel-text">For partnership or product inquiries, reach us via phone or email. We typically respond within 1 business day.</p>
+                            <div class="contact-ctas">
+                                <a href="tel:+639381236488" class="btn-primary">Call</a>
+                                <a href="mailto:gblovendino.gxii@gmail.com" class="btn-outline">Email</a>
+                            </div>
                         </div>
                     </div>
                 </div>
