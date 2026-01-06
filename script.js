@@ -27,21 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (section === 'products') {
         // products data source
         const products = [
-            { img: 'img/product 1.jpg', pdf: '', title: 'TELSTAR', desc: 'Premium international shipping solution.' },
-            { img: 'img/product 2.jpg', pdf: 'productspdf/ROVASTIN_removed.pdf', title: 'ROVASTIN', desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.' },
-            { img: 'img/product 3.jpg', pdf: 'productspdf/BETACARD_removed.pdf', title: 'BETACARD', desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.' },
-            { img: 'img/product 4.jpg', pdf: 'productspdf/ANOION.pdf', title: 'ANOION', desc: 'Cost-optimized routing and consolidation.' },
-            { img: 'img/product 5.jpg', pdf: '', title: 'AMLOTITAN', desc: 'Automated customs documentation.' },
-            { img: 'img/product 6.jpg', pdf: '', title: 'RILIXIA', desc: 'Simplified international returns.' },
-            { img: 'img/product 7.jpg', pdf: 'productspdf/PROTEK GFR_removed.pdf', title: 'Premium Support', desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.' },
-            { img: 'img/TRYME MR.jpeg', pdf: 'productspdf/TRYME MR_removed.pdf', title: 'TRYME MR', desc: '24/7 dedicated account support.' }
+            { img: 'img/product 1.jpg', images: [], pdf: '', title: 'TELSTAR', desc: 'N/A' },
+            { img: 'img/product 2.jpg', images: ['img/ROVASTIN/1.jpg', 'img/ROVASTIN/2.jpg', 'img/ROVASTIN/3.jpg', 'img/ROVASTIN/4.jpg', 'img/ROVASTIN/5.jpg'], pdf: 'productspdf/ROVASTIN_DL.pdf', title: 'ROVASTIN', desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.' },
+            { img: 'img/product 3.jpg', images: ['img/BETACARD/1.jpg', 'img/BETACARD/2.jpg', 'img/BETACARD/3.jpg', 'img/BETACARD/4.jpg'], pdf: 'productspdf/BETACARD_DL.pdf', title: 'BETACARD', desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.' },
+            { img: 'img/product 4.jpg', images: ['img/ANOION/1.jpg', 'img/ANOION/2.jpg', 'img/ANOION/3.jpg'], pdf: 'productspdf/ANOION.pdf', title: 'ANOION', desc: 'ANOION is a trusted, quality-assured, and affordable Amiodarone that helps patients with heart rhythm disorders stay in tune with life, offering over 18 years of proven efficacy and compliance support.' },
+            { img: 'img/product 5.jpg', images: [], pdf: '', title: 'AMLOTITAN', desc: 'N/A' },
+            { img: 'img/product 6.jpg', images: [], pdf: '', title: 'RILIXIA', desc: 'N/A' },
+            { img: 'img/product 7.jpg', images: ['img/PROTEK-GFR/1.jpg', 'img/PROTEK-GFR/2.jpg', 'img/PROTEK-GFR/3.jpg'], pdf: 'productspdf/PROTEK GFR_DL.pdf', title: 'Premium Support', desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.' },
+            { img: 'img/TRYME MR.jpeg', images: ['img/TRYME_MR/1.jpg', 'img/TRYME_MR/2.jpg', 'img/TRYME_MR/3.jpg', 'img/TRYME_MR/4.jpg'], pdf: 'productspdf/TRYME MR_DL.pdf', title: 'TRYME MR', desc: 'TRYME MR is the smart choice for angina management—quality-tested, bioequivalent, and affordable, helping patients save while ensuring effective heart support as the metabolic energizer of the heart.' }
             
         ];
 
         const isMobile = window.innerWidth <= 768;
         const containerHtml = `
             <div class="card">
-                <h3 style="margin-bottom: 20px;">Managed Product Portfolio</h3>
+                <h3 style="margin-bottom: 20px;">Products Services Portfolio</h3>
                 <div id="productContainer"></div>
             </div>`;
 
@@ -55,12 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
             products.forEach(p => {
                 const item = document.createElement('div');
                 item.className = 'product-item';
+                const downloadBtn = p.pdf ? `<a href="${p.pdf}" download class="btn-download" title="Download PDF">📥 Download PDF</a>` : '';
                 item.innerHTML = `
-                    <img src="${p.img}" alt="${p.title}" title="Click image for more details" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}">
-                    <div class="product-hint">Click image for more details</div>
+                    <img src="${p.img}" alt="${p.title}" title="Click to view images" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
+                    <div class="product-hint">Click image to view</div>
                     <div class="product-info">
                         <h4>${p.title}</h4>
                         <p>${p.desc}</p>
+                        ${downloadBtn}
                     </div>`;
                 grid.appendChild(item);
             });
@@ -83,12 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
             pageItems.forEach(p => {
                 const item = document.createElement('div');
                 item.className = 'product-item';
+                const downloadBtn = p.pdf ? `<a href="${p.pdf}" download class="btn-download" title="Download PDF">📥 Download PDF</a>` : '';
                 item.innerHTML = `
-                    <img src="${p.img}" alt="${p.title}" title="Click image for more details" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}">
-                    <div class="product-hint">Click image for more details</div>
+                    <img src="${p.img}" alt="${p.title}" title="Click to view images" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
+                    <div class="product-hint">Click image to view</div>
                     <div class="product-info">
                         <h4>${p.title}</h4>
                         <p>${p.desc}</p>
+                        ${downloadBtn}
                     </div>`;
                 grid.appendChild(item);
             });
@@ -212,81 +216,113 @@ document.addEventListener('DOMContentLoaded', () => {
         loginForm.reset();
     });
 
-    // Image lightbox (click to zoom) - event delegation
-    function createImageLightbox() {
-        let lb = document.getElementById('imageLightbox');
-        if (lb) return lb;
+    // Image gallery (click to view multiple images from folder)
+    function createImageGallery() {
+        let gallery = document.getElementById('imageGallery');
+        if (gallery) return gallery;
 
-        lb = document.createElement('div');
-        lb.id = 'imageLightbox';
-        lb.className = 'img-lightbox';
-        lb.innerHTML = `
-            <div class="img-lightbox-content">
+        gallery = document.createElement('div');
+        gallery.id = 'imageGallery';
+        gallery.className = 'img-gallery';
+        gallery.innerHTML = `
+            <div class="img-gallery-content">
                 <button class="img-close" aria-label="Close">&times;</button>
-                <div class="img-lightbox-wrapper">
-                    <img src="" alt="" style="display:none;">
-                    <iframe src="" frameborder="0" style="display:none;" title="PDF viewer"></iframe>
-                    <div class="img-lightbox-info">
+                <div class="img-gallery-wrapper">
+                    <button class="gallery-prev" style="display:none;">❮</button>
+                    <img src="" alt="" class="gallery-image">
+                    <button class="gallery-next" style="display:none;">❯</button>
+                    <div class="img-gallery-info">
                         <h3></h3>
                         <p></p>
+                        <div class="gallery-counter"></div>
+                        <a href="" class="gallery-download-btn" style="display:none;" download title="Download PDF">📥 Download PDF</a>
                     </div>
                 </div>
             </div>`;
 
-        document.body.appendChild(lb);
+        document.body.appendChild(gallery);
 
-        lb.addEventListener('click', (ev) => {
+        gallery.addEventListener('click', (ev) => {
             // Close when clicking overlay or close button
-            if (ev.target === lb || ev.target.classList.contains('img-close')) {
-                lb.style.display = 'none';
-                const img = lb.querySelector('img');
-                const iframe = lb.querySelector('iframe');
-                img.src = '';
-                img.alt = '';
-                iframe.src = '';
-                lb.querySelector('h3').textContent = '';
-                lb.querySelector('p').textContent = '';
-                img.style.display = 'none';
-                iframe.style.display = 'none';
+            if (ev.target === gallery || ev.target.classList.contains('img-close')) {
+                gallery.style.display = 'none';
             }
         });
 
         window.addEventListener('keydown', (ev) => {
-            if (ev.key === 'Escape' && lb.style.display === 'flex') {
-                lb.style.display = 'none';
+            if (ev.key === 'Escape' && gallery.style.display === 'flex') {
+                gallery.style.display = 'none';
             }
         });
 
-        return lb;
+        return gallery;
     }
 
     document.addEventListener('click', (ev) => {
         const clicked = ev.target.closest ? ev.target.closest('.product-img') : null;
         if (!clicked) return;
 
-        const src = clicked.getAttribute('src');
-        const alt = clicked.getAttribute('alt') || '';
+        const imagesJson = clicked.getAttribute('data-images') || '[]';
+        let images = JSON.parse(imagesJson);
         const title = clicked.getAttribute('data-title') || '';
         const desc = clicked.getAttribute('data-desc') || '';
+        const productImage = clicked.getAttribute('src') || '';
         const pdf = clicked.getAttribute('data-pdf') || '';
-        const lb = createImageLightbox();
-        const img = lb.querySelector('img');
-        const iframe = lb.querySelector('iframe');
-
-        // If a PDF is specified, show it in the iframe, otherwise show the image
-        if (pdf) {
-            iframe.src = pdf;
-            iframe.style.display = 'block';
-            img.style.display = 'none';
-        } else {
-            img.src = src;
-            img.alt = alt;
-            img.style.display = 'block';
-            iframe.style.display = 'none';
+        
+        // If no additional images, use the current product image
+        if (!images || images.length === 0) {
+            images = [productImage];
         }
 
-        lb.querySelector('h3').textContent = title;
-        lb.querySelector('p').textContent = desc;
-        lb.style.display = 'flex';
+        const gallery = createImageGallery();
+        let currentImageIndex = 0;
+
+        function updateGalleryDisplay() {
+            if (images.length === 0) return;
+            
+            const img = gallery.querySelector('.gallery-image');
+            const prevBtn = gallery.querySelector('.gallery-prev');
+            const nextBtn = gallery.querySelector('.gallery-next');
+            const counter = gallery.querySelector('.gallery-counter');
+            const downloadBtn = gallery.querySelector('.gallery-download-btn');
+
+            img.src = images[currentImageIndex];
+            img.alt = title;
+            counter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+
+            prevBtn.style.display = images.length > 1 ? 'block' : 'none';
+            nextBtn.style.display = images.length > 1 ? 'block' : 'none';
+            prevBtn.disabled = currentImageIndex === 0;
+            nextBtn.disabled = currentImageIndex === images.length - 1;
+
+            gallery.querySelector('h3').textContent = title;
+            gallery.querySelector('p').textContent = desc;
+            
+            // Show download button only if PDF exists
+            if (pdf) {
+                downloadBtn.href = pdf;
+                downloadBtn.style.display = 'inline-block';
+            } else {
+                downloadBtn.style.display = 'none';
+            }
+        }
+
+        gallery.querySelector('.gallery-prev').onclick = () => {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                updateGalleryDisplay();
+            }
+        };
+
+        gallery.querySelector('.gallery-next').onclick = () => {
+            if (currentImageIndex < images.length - 1) {
+                currentImageIndex++;
+                updateGalleryDisplay();
+            }
+        };
+
+        currentImageIndex = 0;
+        updateGalleryDisplay();
+        gallery.style.display = 'flex';
     });
 });
