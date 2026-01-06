@@ -56,7 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const item = document.createElement('div');
                 item.className = 'product-item';
                 const downloadBtn = p.pdf ? `<a href="${p.pdf}" download class="btn-download" title="Download PDF">📥 Download PDF</a>` : '';
+                const imagesCount = (p.images && p.images.length) ? p.images.length : 0;
+                const pdfBadge = p.pdf ? `<span class="badge pdf-badge" title="PDF available"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H8a2 2 0 00-2 2v4h2V4h11v16H8v-4H6v4a2 2 0 002 2h11a2 2 0 002-2V4a2 2 0 00-2-2z" fill="currentColor"/></svg></span>` : '';
+                const imgBadge = imagesCount > 1 ? `<span class="badge img-badge" title="${imagesCount} images"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14h18zM5 5h14v14H5V5zm3 9l2.5-3 3.5 4.5H8z" fill="currentColor"/></svg><span class="badge-count">${imagesCount}</span></span>` : '';
                 item.innerHTML = `
+                    <div class="product-badges">${pdfBadge}${imgBadge}</div>
                     <img src="${p.img}" alt="${p.title}" title="Click to view images" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
                     <div class="product-hint">Click image to view</div>
                     <div class="product-info">
@@ -86,7 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const item = document.createElement('div');
                 item.className = 'product-item';
                 const downloadBtn = p.pdf ? `<a href="${p.pdf}" download class="btn-download" title="Download PDF">📥 Download PDF</a>` : '';
+                const imagesCount = (p.images && p.images.length) ? p.images.length : 0;
+                const pdfBadge = p.pdf ? `<span class="badge pdf-badge" title="PDF available"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H8a2 2 0 00-2 2v4h2V4h11v16H8v-4H6v4a2 2 0 002 2h11a2 2 0 002-2V4a2 2 0 00-2-2z" fill="currentColor"/></svg></span>` : '';
+                const imgBadge = imagesCount > 1 ? `<span class="badge img-badge" title="${imagesCount} images"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14h18zM5 5h14v14H5V5zm3 9l2.5-3 3.5 4.5H8z" fill="currentColor"/></svg><span class="badge-count">${imagesCount}</span></span>` : '';
                 item.innerHTML = `
+                    <div class="product-badges">${pdfBadge}${imgBadge}</div>
                     <img src="${p.img}" alt="${p.title}" title="Click to view images" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
                     <div class="product-hint">Click image to view</div>
                     <div class="product-info">
