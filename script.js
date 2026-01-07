@@ -4,6 +4,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('mainContent');
     const loginBtn = document.getElementById('loginBtn');
 
+    // Clinic locations and addresses mapping
+    const CLINIC_LOCATIONS = {
+        'ALBAY TOWNS': ['CAMLIG RHU', 'GUINABATAN RHU', 'LIGAO CITY CHU', 'POLANGUI RHU', 'ENCISCO CLINIC', 'APILAN CLINIC', 'MUNOZ CLINIC', 'GMH', 'ZMI'],
+        'LEGAZPI': ['BRHMC', 'USTLH', 'EMH', 'DDH', 'ACE', 'CENTRAL LINK', 'WONG CLINIC', 'TGH', 'DARAGA RHU', 'BETHESDA INFIRMARY'],
+        'TABACO': ['BUELA CLINIC', 'COPE', 'GOLEKOH', 'MMG TABACO', 'TABACO CHO', 'BILO CLINIC', 'TABACO CITY'],
+        'CATANDUANES': ['NATIVIDAD CLINIC', 'SANTOS CLINIC', 'TUPLANO CLINIC', 'BALMADRID CLINIC', 'VIRAC MEDICAL CENTER', 'CDHI', 'HEALTHLINE', 'LAMBAN CLINIC', 'VENTS', 'GUERRERO CLINIC']
+    };
+
+    // Helper for login state
+    function isLoggedIn() {
+        return localStorage.getItem('gx_logged_in') === 'true';
+    }
+
+    function setLoggedIn(val) {
+        localStorage.setItem('gx_logged_in', val ? 'true' : 'false');
+    }
+
     // 1. Mobile Menu Toggle
     mobileMenu.addEventListener('click', () => {
         navWrapper.classList.toggle('active');
@@ -11,18 +28,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Navigation Content Logic
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
             const section = link.getAttribute('data-section');
-            updateContent(section);
-            navWrapper.classList.remove('active'); // Close menu on mobile
+            
+            // Only prevent default and handle section switching if data-section exists
+            if (section) {
+                e.preventDefault();
+                updateContent(section);
+                navWrapper.classList.remove('active'); // Close menu on mobile
+            }
+            // If no data-section, allow normal link navigation (e.g., places.html)
         });
     });
 
+    // Auth-only nav helpers
+    function showAuthLinks() {
+        document.querySelectorAll('.auth-only').forEach(el => el.style.display = 'inline-block');
+    }
+
+    function hideAuthLinks() {
+        document.querySelectorAll('.auth-only').forEach(el => el.style.display = 'none');
+    }
+
     function updateContent(section) {
     const mainContent = document.getElementById('mainContent');
+
+    // Always hide the places section by default when switching content
+    const placesSec = document.getElementById('placesSection');
+    if (placesSec) placesSec.style.display = 'none';
 
     if (section === 'products') {
         // products data source
@@ -210,6 +245,21 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
     } else {
         // This handles the "Profile" tab
+        if (section === 'places') {
+            // Show the Place manager in the main view
+            document.querySelectorAll('#mainContent .card').forEach(c => c.style.display = 'none');
+            const ps = document.getElementById('placesSection');
+            if (ps) {
+                ps.style.display = 'block';
+                ps.scrollIntoView({behavior: 'smooth'});
+                renderPlaces();
+                return;
+            }
+        }
+        if (section === 'saved_schedules') {
+            window.location.href = 'saved_schedules.html';
+            return;
+        }
         location.reload(); 
     }
 }
@@ -221,7 +271,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        loginModal.style.display = 'block';
+        if (isLoggedIn()) {
+            // logout
+            setLoggedIn(false);
+            loginBtn.textContent = 'Login';
+            const ps = document.getElementById('placesSection'); if (ps) ps.style.display = 'none';
+            hideAuthLinks();
+            alert('Logged out');
+        } else {
+            loginModal.style.display = 'block';
+        }
     });
 
     closeModal.addEventListener('click', () => {
@@ -236,6 +295,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Sign-up modal handlers
+    const signupModal = document.getElementById('signupModal');
+    const closeSignupModal = document.getElementById('closeSignupModal');
+    const signupForm = document.getElementById('signupForm');
+    const showSignupLink = document.getElementById('showSignupLink');
+    const backToLoginLink = document.getElementById('backToLoginLink');
+
+    showSignupLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.style.display = 'none';
+        signupModal.style.display = 'block';
+    });
+
+    backToLoginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        signupModal.style.display = 'none';
+        signupForm.reset();
+        loginModal.style.display = 'block';
+    });
+
+    closeSignupModal.addEventListener('click', () => {
+        signupModal.style.display = 'none';
+        signupForm.reset();
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === signupModal) {
+            signupModal.style.display = 'none';
+            signupForm.reset();
+        }
+    });
+
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
+
+        if (!name || !email || !password || !passwordConfirm) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        const fd = new FormData();
+        fd.append('name', name);
+        fd.append('email', email);
+        fd.append('password', password);
+        fd.append('password_confirm', passwordConfirm);
+
+        fetch('register.php', {
+            method: 'POST',
+            body: fd,
+            credentials: 'same-origin'
+        }).then(r => r.json())
+          .then(data => {
+              if (data && data.success) {
+                  alert(data.message);
+                  signupModal.style.display = 'none';
+                  signupForm.reset();
+                  loginModal.style.display = 'block';
+              } else {
+                  alert(data && data.message ? data.message : 'Registration failed');
+              }
+          }).catch(err => {
+              console.error('Registration error', err);
+              alert('Registration request failed');
+          });
+    });
+
+
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = document.getElementById('email').value;
@@ -248,12 +378,374 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Here you would typically send the data to a server
-        console.log('Login attempt:', { email, remember });
-        alert('Login successful! Welcome to GX International.');
-        loginModal.style.display = 'none';
-        loginForm.reset();
+        // Send credentials to the PHP backend for verification
+        const fd = new FormData();
+        fd.append('email', email);
+        fd.append('password', password);
+
+        fetch('login.php', {
+            method: 'POST',
+            body: fd,
+            credentials: 'same-origin'
+        }).then(r => r.json())
+          .then(data => {
+              if (data && data.success) {
+                  setLoggedIn(true);
+                  loginBtn.textContent = 'Logout';
+                showAuthLinks();
+                alert('Login successful!');
+                loginModal.style.display = 'none';
+                loginForm.reset();
+              } else {
+                  alert(data && data.message ? data.message : 'Login failed');
+              }
+          }).catch(err => {
+              console.error('Login error', err);
+              alert('Login request failed');
+          });
     });
+
+    // Places logic (DB-backed via places.php)
+    function loadPlaces() {
+        return fetch('places.php?action=list', { credentials: 'same-origin' })
+            .then(r => {
+                if (!r.ok) {
+                    throw new Error(`HTTP ${r.status}: ${r.statusText}`);
+                }
+                return r.text();
+            })
+            .then(text => {
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    console.error('Invalid JSON response:', text);
+                    console.error('JSON parse error:', e);
+                    throw new Error('Server returned invalid JSON: ' + text.substring(0, 100));
+                }
+            })
+            .then(data => (data && data.success) ? (data.places || []) : [])
+            .catch(err => { 
+                console.error('Load places error:', err); 
+                return []; 
+            });
+    }
+
+    function addPlace(doctorName, clinicAddress, specialty, clinicHours, location) {
+        const fd = new FormData();
+        fd.append('action', 'add');
+        fd.append('doctor_name', doctorName);
+        fd.append('clinic_address', clinicAddress);
+        fd.append('specialty', specialty);
+        fd.append('clinic_hours', clinicHours);
+        fd.append('location', location);
+
+        console.log('Sending place data:', {doctorName, clinicAddress, specialty, clinicHours, location});
+
+        return fetch('places.php', { method: 'POST', body: fd, credentials: 'same-origin' })
+            .then(r => {
+                if (!r.ok) {
+                    throw new Error(`HTTP ${r.status}: ${r.statusText}`);
+                }
+                return r.text();
+            })
+            .then(text => {
+                console.log('Raw response from places.php:', text);
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    console.error('Invalid JSON response:', text);
+                    console.error('JSON parse error:', e);
+                    throw new Error('Server returned invalid JSON: ' + text.substring(0, 100));
+                }
+            })
+            .then(data => {
+                if (data && data.success) return true;
+                alert(data && data.message ? data.message : 'Failed to add place');
+                return false;
+            })
+            .catch(err => { 
+                console.error('Add place error:', err); 
+                alert('Add place request failed: ' + err.message); 
+                return false; 
+            });
+    }
+
+    function deletePlace(placeId) {
+        const fd = new FormData();
+        fd.append('action', 'delete');
+        fd.append('place_id', placeId);
+
+        return fetch('places.php', { method: 'POST', body: fd, credentials: 'same-origin' })
+            .then(r => {
+                if (!r.ok) {
+                    throw new Error(`HTTP ${r.status}: ${r.statusText}`);
+                }
+                return r.text();
+            })
+            .then(text => {
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    console.error('Invalid JSON response:', text);
+                    throw new Error('Server returned invalid JSON');
+                }
+            })
+            .then(data => {
+                if (data && data.success) return true;
+                alert(data && data.message ? data.message : 'Failed to delete place');
+                return false;
+            })
+            .catch(err => { 
+                console.error('Delete place error:', err); 
+                alert('Delete place request failed: ' + err.message); 
+                return false; 
+            });
+    }
+
+    // Add these variables to your global state or inside DOMContentLoaded
+let isPlacesVisible = true;
+
+// 1. Toggle Visibility Logic
+const toggleBtn = document.getElementById('togglePlacesBtn');
+if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+        isPlacesVisible = !isPlacesVisible;
+        const container = document.getElementById('placeListContainer');
+        container.style.display = isPlacesVisible ? 'block' : 'none';
+        toggleBtn.textContent = isPlacesVisible ? 'Hide Places' : 'Show Places';
+    });
+}
+
+// 2. Filter Logic
+const listSearch = document.getElementById('listSearch');
+if (listSearch) {
+    listSearch.addEventListener('input', () => renderPlaces());
+}
+
+function renderPlaces() {
+    const section = document.getElementById('placesSection');
+    if (!isLoggedIn()) { if(section) section.style.display = 'none'; return; }
+    
+    loadPlaces().then(list => {
+        const container = document.getElementById('placeList');
+        
+        // Get filter values from the UI
+        const filterInput = document.getElementById('placeListFilter');
+        const filterText = filterInput ? filterInput.value.toLowerCase() : '';
+        
+        const locationFilterInput = document.getElementById('placeLocationFilter');
+        const selectedLocation = locationFilterInput ? locationFilterInput.value : 'all';
+        
+        container.innerHTML = '';
+
+        // Combined Filtering Logic
+        const filteredList = list.filter(it => {
+            const matchesSearch = it.doctor_name.toLowerCase().includes(filterText) || 
+                                  it.specialty.toLowerCase().includes(filterText);
+            
+            const matchesLocation = (selectedLocation === 'all') || (it.location === selectedLocation);
+            
+            return matchesSearch && matchesLocation;
+        });
+
+        if (filteredList.length === 0) {
+            container.innerHTML = '<div class="meta" style="padding:10px;">No matching places found.</div>';
+            return;
+        }
+
+        filteredList.forEach((it) => {
+            const el = document.createElement('div');
+            el.className = 'schedule-item';
+            el.innerHTML = `
+                <div class="left">
+                    <strong>${escapeHtml(it.doctor_name)}</strong>
+                    <div class="meta">${escapeHtml(it.specialty)} · ${escapeHtml(it.clinic_address)}</div>
+                    <div class="meta">Location: ${escapeHtml(it.location)} | Hours: ${escapeHtml(it.clinic_hours)}</div>
+                </div>
+                <div class="actions" style="display: flex; gap: 8px;">
+                    <button class="btn-edit" style="background: #f39c12; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Edit</button>
+                    <button class="btn-del" data-id="${it.id}">Delete</button>
+                </div>`;
+
+            // EDIT BUTTON LOGIC: Fills the top form with this item's data
+            el.querySelector('.btn-edit').addEventListener('click', () => {
+                document.getElementById('doctorName').value = it.doctor_name;
+                document.getElementById('location').value = it.location;
+                
+                // Trigger the clinic dropdown update
+                const locationSelect = document.getElementById('location');
+                locationSelect.dispatchEvent(new Event('change'));
+                document.getElementById('clinicAddress').value = it.clinic_address;
+                
+                document.getElementById('specialty').value = it.specialty;
+                document.getElementById('clinicHours').value = it.clinic_hours;
+
+                // Set form state to "Update"
+                const placeForm = document.getElementById('placeForm');
+                placeForm.dataset.editId = it.id;
+                placeForm.querySelector('button[type="submit"]').textContent = 'Update Place';
+                placeForm.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // DELETE LOGIC
+            el.querySelector('.btn-del').addEventListener('click', async () => {
+                if (!confirm('Delete this place?')) return;
+                const success = await deletePlace(it.id);
+                if (success) renderPlaces();
+            });
+
+            container.appendChild(el);
+        });
+    });
+}
+// 4. Helper to Populate Form for Editing
+function populateFormForEdit(place) {
+    document.getElementById('doctorName').value = place.doctor_name;
+    document.getElementById('location').value = place.location;
+    
+    // Trigger location change to update clinic dropdown
+    const event = new Event('change');
+    document.getElementById('location').dispatchEvent(event);
+    
+    document.getElementById('clinicAddress').value = place.clinic_address;
+    document.getElementById('specialty').value = place.specialty;
+    document.getElementById('clinicHours').value = place.clinic_hours;
+    
+    // Change form behavior to "Update"
+    const submitBtn = document.querySelector('#placeForm .btn-submit') || document.querySelector('#placeForm button[type="submit"]');
+    submitBtn.textContent = 'Update Place';
+    
+    // Store the ID being edited on the form
+    document.getElementById('placeForm').dataset.editId = place.id;
+    
+    // Scroll to form
+    document.getElementById('placeForm').scrollIntoView({behavior: 'smooth'});
+}
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>"']/g, function (s) {
+            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]);
+        });
+    }
+
+    /* --- Placement in script.js --- */
+
+/* --- Inside script.js --- */
+
+// 1. Find where you defined these:
+const placeForm = document.getElementById('placeForm');
+const locationSelect = document.getElementById('location');
+const clinicAddressSelect = document.getElementById('clinicAddress');
+
+// 2. Paste the new listeners here:
+const placeListFilter = document.getElementById('placeListFilter');
+if (placeListFilter) {
+    placeListFilter.addEventListener('input', () => {
+        renderPlaces(); 
+    });
+}
+
+const placeLocationFilter = document.getElementById('placeLocationFilter');
+if (placeLocationFilter) {
+    placeLocationFilter.addEventListener('change', () => {
+        renderPlaces(); 
+    });
+}
+
+    // Update clinic address dropdown when location changes
+    if (locationSelect) {
+        locationSelect.addEventListener('change', (e) => {
+            const location = e.target.value;
+            clinicAddressSelect.innerHTML = '<option value="">-- Select Hospital/Clinic --</option>';
+            
+            if (location && CLINIC_LOCATIONS[location]) {
+                CLINIC_LOCATIONS[location].forEach(clinic => {
+                    const option = document.createElement('option');
+                    option.value = clinic;
+                    option.textContent = clinic;
+                    clinicAddressSelect.appendChild(option);
+                });
+            }
+        });
+    }
+
+    if (placeForm) {
+    placeForm.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const location = document.getElementById('location').value.trim();
+        const doctorName = document.getElementById('doctorName').value.trim();
+        const clinicAddress = document.getElementById('clinicAddress').value.trim();
+        const specialty = document.getElementById('specialty').value.trim();
+        const clinicHours = document.getElementById('clinicHours').value.trim();
+
+        // Validation Pattern
+        const hoursPattern = /^(M|T|W|Th|F|Sa|Su)(-(M|T|W|Th|F|Sa|Su))?\s+\d{1,2}(?::\d{2})?\s*-\s*\d{1,2}(?::\d{2})?$/i;
+
+        if (!hoursPattern.test(clinicHours)) {
+            alert('Clinic hours must match formats like "M-F 8-12" or "M 7-12" using day initials.');
+            return;
+        }
+
+        if (!location || !doctorName || !clinicAddress || !specialty || !clinicHours) {
+            alert('Please fill all place fields');
+            return;
+        }
+
+        const editId = placeForm.dataset.editId; // Check if we are editing
+        const fd = new FormData();
+        
+        // Setup payload based on Add vs Update
+        if (editId) {
+            fd.append('action', 'update');
+            fd.append('place_id', editId);
+        } else {
+            fd.append('action', 'add');
+        }
+
+        fd.append('doctor_name', doctorName);
+        fd.append('clinic_address', clinicAddress);
+        fd.append('specialty', specialty);
+        fd.append('clinic_hours', clinicHours);
+        fd.append('location', location);
+
+        try {
+            const response = await fetch('places.php', { method: 'POST', body: fd, credentials: 'same-origin' });
+            const data = await response.json();
+
+            if (data && data.success) {
+                alert(editId ? 'Place updated!' : 'Place added!');
+                placeForm.reset();
+                delete placeForm.dataset.editId; // Reset form state
+                placeForm.querySelector('button[type="submit"]').textContent = 'Add Place';
+                clinicAddressSelect.innerHTML = '<option value="">-- Select Hospital/Clinic --</option>';
+                renderPlaces();
+            } else {
+                alert(data.message || 'Operation failed');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    });
+}
+
+    const clearBtn = document.getElementById('clearPlaces');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', async () => {
+            if (!confirm('Clear all saved places?')) return;
+            const list = await loadPlaces();
+            for (let item of list) {
+                await deletePlace(item.id);
+            }
+            renderPlaces();
+        });
+    }
+
+    // Show scheduler automatically if user already logged in
+    if (isLoggedIn()) {
+        loginBtn.textContent = 'Logout';
+        showAuthLinks();
+    }
 
     // Image gallery (click to view multiple images from folder)
     function createImageGallery() {

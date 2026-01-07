@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Saved Schedules | GX International</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+      :root {
+    --bg: #f5f7fb;
+    --panel: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    --accent: #2563eb;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+  }
+
+  header {
+    padding: 18px 16px;
+    text-align: center;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+
+  header a {
+    text-decoration: none;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  h2, h3 {
+    margin: 8px 0 0 0;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .schedules-container {
+    max-width: 1100px;
+    margin: 24px auto 40px;
+    padding: 0 18px;
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .controls select,
+  .toggle-btn {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel);
+    font-size: 14px;
+    color: var(--text);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .controls select:focus,
+  .toggle-btn:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  .toggle-btn {
+    cursor: pointer;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    background: var(--panel);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+  }
+
+  thead {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  th, td {
+    padding: 12px 12px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  th {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  tbody tr:hover {
+    background: #f8fbff;
+  }
+
+  .week-label {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  select.day-select {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #f9fbfd;
+    font-size: 14px;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  select.day-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  }
+
+  .hint {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .meta {
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  /* Saved schedules list */
+  .schedule-row {
+    background: var(--panel);
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  }
+
+  .schedule-row strong {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .schedule-row .meta-line {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 2px;
+  }
+
+  .schedule-row .hours {
+    color: var(--text);
+    font-size: 0.95rem;
+    margin-top: 6px;
+  }
+
+  .schedule-row .hours span {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Section headers inside list */
+  .week-header {
+    margin-top: 14px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .day-header {
+    margin-top: 6px;
+    margin-bottom: 4px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  @media (max-width: 768px) {
+    th, td { padding: 10px 8px; font-size: 14px; }
+    .day-select { font-size: 14px; }
+    .controls { flex-direction: column; align-items: flex-start; }
+    .schedule-row { flex-direction: column; }
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">← Back</a>
+    <h2 style="margin:8px 0 0 0;">Saved Schedules</h2>
+  </header>
+
+  <main class="schedules-container">
+    <!-- Month selector + planner toggle -->
+    <div class="controls">
+      <label for="monthSelect" style="font-weight:600;">Month:</label>
+      <select id="monthSelect">
+        <option value="January">January</option><option value="February">February</option>
+        <option value="March">March</option><option value="April">April</option>
+        <option value="May">May</option><option value="June">June</option>
+        <option value="July">July</option><option value="August">August</option>
+        <option value="September">September</option><option value="October">October</option>
+        <option value="November">November</option><option value="December">December</option>
+      </select>
+
+      <button id="togglePlanner" type="button" class="toggle-btn">Hide planner</button>
+    </div>
+
+    <!-- Week-by-week, Mon–Fri location planner -->
+    <div id="plannerSection">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Week</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>
+          </thead>
+          <tbody id="scheduleBody"></tbody>
+        </table>
+      </div>
+      <div class="hint">Edit any cell; changes are saved locally for the selected month.</div>
+    </div>
+
+    <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0;">
+
+    <!-- Filters for viewing DB-backed schedules according to planner -->
+    <h3 style="margin-bottom:12px;">Saved clinic schedules (from your places)</h3>
+
+    <div class="controls" style="margin-bottom:10px;">
+      <label for="weekFilter" style="font-weight:600;">Week:</label>
+      <select id="weekFilter">
+        <option value="all">All weeks</option><option value="1">1st week</option>
+        <option value="2">2nd week</option><option value="3">3rd week</option><option value="4">4th week</option>
+      </select>
+
+      <label for="dayFilter" style="font-weight:600;">Day:</label>
+      <select id="dayFilter">
+        <option value="all">All days</option>
+        <option value="0">Monday</option><option value="1">Tuesday</option><option value="2">Wednesday</option>
+        <option value="3">Thursday</option><option value="4">Friday</option>
+      </select>
+    </div>
+
+    <div id="schedulesList">Loading schedules…</div>
+  </main>
+
+  <script>
+    // --- Planner defaults & shared constants ---
+    const DEFAULT_SCHEDULES = {
+      'January': {
+        1: ['Legazpi','Legazpi','Tabaco','Legazpi','Albay Towns'],
+        2: ['Legazpi','Legazpi','Tabaco','Legazpi','Albay Towns'],
+        3: ['Legazpi','Catanduanes','Catanduanes','Legazpi','Albay Towns'],
+        4: ['Legazpi','Legazpi','Tabaco','Legazpi','Albay Towns'],
+      }
+    };
+    const LOCATIONS = ['Legazpi','Tabaco','Catanduanes','Albay Towns','ALBAY TOWNS','LEGAZPI','TABACO','CATANDUANES','Other'];
+    const WEEK_NAMES = {1:'1st', 2:'2nd', 3:'3rd', 4:'4th'};
+    const DAY_NAMES  = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+
+    const monthSelect    = document.getElementById('monthSelect');
+    const scheduleBody   = document.getElementById('scheduleBody');
+    const weekFilter     = document.getElementById('weekFilter');
+    const dayFilter      = document.getElementById('dayFilter');
+    const plannerSection = document.getElementById('plannerSection');
+    const togglePlanner  = document.getElementById('togglePlanner');
+
+    // --- Local planner storage helpers ---
+    function loadMonthData(month) {
+      const key = 'gx_sched_' + month;
+      const saved = localStorage.getItem(key);
+      if (saved) return JSON.parse(saved);
+      if (DEFAULT_SCHEDULES[month]) return DEFAULT_SCHEDULES[month];
+      return { 1: ['', '', '', '', ''], 2: ['', '', '', '', ''], 3: ['', '', '', '', ''], 4: ['', '', '', '', ''] };
+    }
+    function saveMonthData(month, data) {
+      localStorage.setItem('gx_sched_' + month, JSON.stringify(data));
+    }
+
+    // --- Render the month planner table ---
+    function renderTable() {
+      const month = monthSelect.value;
+      const data = loadMonthData(month);
+      scheduleBody.innerHTML = '';
+      for (let week = 1; week <= 4; week++) {
+        const row = document.createElement('tr');
+        const label = document.createElement('td');
+        label.className = 'week-label';
+        label.textContent = `${week}${week === 1 ? 'st' : week === 2 ? 'nd' : week === 3 ? 'rd' : 'th'} Week`;
+        row.appendChild(label);
+        for (let day = 0; day < 5; day++) {
+          const td = document.createElement('td');
+          const sel = document.createElement('select');
+          sel.className = 'day-select';
+          sel.innerHTML = LOCATIONS.map(loc => `<option value="${loc}">${loc}</option>`).join('');
+          sel.value = (data[week] && data[week][day]) || '';
+          sel.addEventListener('change', () => {
+            const updated = loadMonthData(month);
+            if (!updated[week]) updated[week] = ['', '', '', '', ''];
+            updated[week][day] = sel.value;
+            saveMonthData(month, updated);
+            renderSavedSchedulesList();
+          });
+          td.appendChild(sel);
+          row.appendChild(td);
+        }
+        scheduleBody.appendChild(row);
+      }
+    }
+
+    // --- DB-backed saved schedules list (from schedules.php) ---
+    async function loadSchedulesFromServer() {
+      try {
+        const res = await fetch('schedules.php?action=list', { credentials: 'same-origin' });
+        if (!res.ok) {
+          if (res.status === 401) {
+            document.getElementById('schedulesList').innerHTML =
+              '<div class="meta" style="color:#dc2626;">Please log in to view saved schedules.</div>';
+            return [];
+          }
+          throw new Error('HTTP ' + res.status + ': ' + res.statusText);
+        }
+        const data = await res.json();
+        if (!data.success) {
+          document.getElementById('schedulesList').innerHTML =
+            '<div class="meta" style="color:#dc2626;">Failed to load schedules: ' + (data.message || 'Unknown error') + '</div>';
+          return [];
+        }
+        return data.schedules || [];
+      } catch (err) {
+        console.error('loadSchedules error', err);
+        document.getElementById('schedulesList').innerHTML =
+          '<div class="meta" style="color:#dc2626;">Error loading schedules.</div>';
+        return [];
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, ch => (
+        {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]
+      ));
+    }
+
+    // --- Render saved schedules grouped & filtered by planner week/day locations ---
+    async function renderSavedSchedulesList() {
+      const listEl = document.getElementById('schedulesList');
+      const allSchedules = await loadSchedulesFromServer();
+      if (!allSchedules.length) {
+        listEl.innerHTML = '<div class="meta" style="color:#64748b;">No saved schedules found.</div>';
+        return;
+      }
+
+      const month   = monthSelect.value;
+      const planner = loadMonthData(month);
+      const weekVal = weekFilter ? weekFilter.value : 'all';
+      const dayVal  = dayFilter  ? dayFilter.value  : 'all';
+
+      const weekIndices = (weekVal === 'all') ? [1,2,3,4] : [parseInt(weekVal, 10)];
+      const dayIndices  = (dayVal === 'all')  ? [0,1,2,3,4] : [parseInt(dayVal, 10)];
+      const norm = (v) => (v || '').trim().toLowerCase();
+
+      listEl.innerHTML = '';
+      let anyMatch = false;
+
+      weekIndices.forEach(week => {
+        const weekRow = planner[week] || [];
+        let weekHasData = false;
+
+        dayIndices.forEach(dayIdx => {
+          const loc = weekRow[dayIdx] || '';
+          if (!loc) return;
+
+          const plannedLoc = norm(loc);
+          const matching = allSchedules.filter(s => norm(s.location) === plannedLoc);
+          if (!matching.length) return;
+
+          if (!weekHasData) {
+            const weekHeader = document.createElement('div');
+            weekHeader.style.cssText = 'margin-top:14px;font-weight:700;color:#0f172a;';
+            weekHeader.textContent = `${WEEK_NAMES[week] || week} Week`;
+            listEl.appendChild(weekHeader);
+            weekHasData = true;
+          }
+
+          const dayHeader = document.createElement('div');
+          dayHeader.style.cssText = 'margin-top:6px;margin-bottom:4px;font-weight:600;color:#0f172a;';
+          dayHeader.textContent = `${DAY_NAMES[dayIdx]} – ${loc}`;
+          listEl.appendChild(dayHeader);
+
+          matching.forEach(it => {
+            const row = document.createElement('div');
+            row.className = 'schedule-row';
+            row.style.cssText =
+              'background:#fff;padding:10px 12px;border-radius:8px;margin-bottom:6px;' +
+              'display:flex;justify-content:space-between;align-items:flex-start;gap:12px;';
+              row.innerHTML = `
+  <div>
+    <strong>${escapeHtml(it.doctor_name)}</strong>
+    <div class="meta-line">
+      ${escapeHtml(it.specialty)} · ${escapeHtml(it.clinic_address)} ·
+      <span style="font-weight:600;">${escapeHtml(it.location || '')}</span>
+    </div>
+    <div class="hours">
+      Hours: <span>${escapeHtml(it.clinic_hours)}</span>
+    </div>
+  </div>
+`;
+            listEl.appendChild(row);
+            anyMatch = true;
+          });
+        });
+      });
+
+      if (!anyMatch) {
+        listEl.innerHTML = '<div class="meta" style="color:#64748b;">No schedules match this month/week/day plan.</div>';
+      }
+    }
+
+    // --- Toggle planner show/hide ---
+    if (togglePlanner && plannerSection) {
+      togglePlanner.addEventListener('click', () => {
+        const isHidden = plannerSection.style.display === 'none';
+        plannerSection.style.display = isHidden ? 'block' : 'none';
+        togglePlanner.textContent = isHidden ? 'Hide planner' : 'Show planner';
+      });
+    }
+
+    // --- Wire up events and initial render ---
+    monthSelect.addEventListener('change', () => { renderTable(); renderSavedSchedulesList(); });
+    if (weekFilter) weekFilter.addEventListener('change', renderSavedSchedulesList);
+    if (dayFilter)  dayFilter.addEventListener('change', renderSavedSchedulesList);
+
+    renderTable();
+    renderSavedSchedulesList();
+  </script>
+</body>
+</html>

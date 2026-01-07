@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Places - GX International</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+                .places-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+        }
+
+        .page-header h1 {
+            color: #003d82;
+            margin: 0;
+        }
+
+        .back-btn {
+            background: #003d82;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: #002a5a;
+        }
+
+        /* Excel-like Table Styles */
+        .table-controls {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .table-wrapper {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .places-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 800px;
+        }
+
+        .places-table thead {
+            background: #003d82;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .places-table th {
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .places-table th:last-child {
+            border-right: none;
+        }
+
+        .places-table th:hover {
+            background: #002a5a;
+        }
+
+        .places-table th.sortable {
+            position: relative;
+            padding-right: 25px;
+        }
+
+        .places-table th.sortable::after {
+            content: '⇅';
+            position: absolute;
+            right: 8px;
+            opacity: 0.5;
+            font-size: 12px;
+        }
+
+        .places-table th.sort-asc::after {
+            content: '↑';
+            opacity: 1;
+        }
+
+        .places-table th.sort-desc::after {
+            content: '↓';
+            opacity: 1;
+        }
+
+        .places-table tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s;
+        }
+
+        .places-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .places-table tbody tr:hover {
+            background-color: #f0f7ff;
+        }
+
+        .places-table td {
+            padding: 10px;
+            border-right: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+
+        .places-table td:last-child {
+            border-right: none;
+        }
+
+        .places-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state p {
+            margin: 0 0 15px;
+            font-size: 16px;
+        }
+
+        .empty-state a {
+            background: #003d82;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .empty-state a:hover {
+            background: #002a5a;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .table-info {
+            margin-top: 10px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .places-container {
+                padding: 0 10px;
+            }
+
+            .table-controls {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .search-box,
+            .filter-select {
+                width: 100%;
+                padding: 10px 14px;
+                font-size: 16px; /* Larger for mobile touch */
+            }
+
+            .places-table {
+                font-size: 15px; /* Increased from 12px */
+                min-width: 100%; /* Remove min-width constraint for mobile */
+            }
+
+            .places-table th {
+                padding: 14px 10px; /* Increased padding */
+                font-size: 15px;
+            }
+
+            .places-table td {
+                padding: 12px 10px; /* Increased from 8px 6px */
+                font-size: 14px;
+            }
+
+            .table-wrapper {
+                margin: 0 -10px; /* Extend to edges on mobile */
+                border-radius: 0;
+            }
+
+            .table-info {
+                font-size: 14px;
+                padding: 10px 0;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img src="img/logo.png" alt="GX International logo" class="logo-img">
+            <span class="logo-text">GX INTERNATIONAL</span>
+        </a>
+        
+        <div class="menu-toggle" id="mobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-wrapper" id="navWrapper">
+            <nav>
+                <a href="index.html" class="nav-link">Profile</a>
+                <a href="index.html" class="nav-link">Products</a>
+                <a href="index.html" class="nav-link">Contacts</a>
+                <a href="places.html" class="nav-link">Places</a>
+                <a href="index.html" class="nav-link auth-only">Add Place</a>
+                <a href="saved_schedules.html" class="nav-link auth-only">Saved Schedules</a>
+            </nav>
+            <a href="#" class="btn-login" id="loginBtn">Login</a>
+        </div>
+    </header>
+
+    <div class="places-container">
+    <div class="page-header">
+        <h1>Places Directory</h1>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+
+   
+
+    <div id="placesContent">
+        <div id="placeList"></div>
+    </div>
+</div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <div class="login-container">
+                <h2>GX International Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn-submit">Sign In</button>
+                </form>
+                <p class="signup-link">Don't have an account? <a href="#" id="showSignupLink">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeSignupModal">&times;</span>
+            <div class="login-container">
+                <h2>Create Account</h2>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" name="signupName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" name="signupEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" name="signupPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPasswordConfirm">Confirm Password</label>
+                        <input type="password" id="signupPasswordConfirm" name="signupPasswordConfirm" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Create Account</button>
+                </form>
+                <p class="signup-link">Already have an account? <a href="#" id="backToLoginLink">Sign in here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Login state helpers
+        function isLoggedIn() {
+            return localStorage.getItem('gx_logged_in') === 'true';
+        }
+        function setLoggedIn(val) {
+            localStorage.setItem('gx_logged_in', val ? 'true' : 'false');
+        }
+        function showAuthLinks() {
+            document.querySelectorAll('.auth-only').forEach(el => el.style.display = 'inline-block');
+        }
+        function hideAuthLinks() {
+            document.querySelectorAll('.auth-only').forEach(el => el.style.display = 'none');
+        }
+        function updateLoginUI() {
+            const loginBtn = document.getElementById('loginBtn');
+            if (isLoggedIn()) {
+                if (loginBtn) loginBtn.textContent = 'Logout';
+                showAuthLinks();
+            } else {
+                if (loginBtn) loginBtn.textContent = 'Login';
+                hideAuthLinks();
+            }
+        }
+    
+        // Global table state
+        let allPlacesData = [];
+        let currentSortColumn = null;
+        let currentSortDirection = 'asc';
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLoginUI();
+    
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navWrapper = document.getElementById('navWrapper');
+            if (mobileMenu && navWrapper) {
+                mobileMenu.addEventListener('click', () => navWrapper.classList.toggle('active'));
+            }
+    
+            const loginBtn = document.getElementById('loginBtn');
+            const loginModal = document.getElementById('loginModal');
+            const closeModal = document.getElementById('closeModal');
+            const signupModal = document.getElementById('signupModal');
+            const closeSignupModal = document.getElementById('closeSignupModal');
+            const showSignupLink = document.getElementById('showSignupLink');
+            const backToLoginLink = document.getElementById('backToLoginLink');
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+    
+            if (loginBtn && loginModal) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (isLoggedIn()) {
+                        setLoggedIn(false);
+                        updateLoginUI();
+                        alert('Logged out');
+                        loadAndDisplayPlaces();
+                    } else {
+                        loginModal.style.display = 'block';
+                    }
+                });
+            }
+            if (closeModal) {
+                closeModal.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                    if (loginForm) loginForm.reset();
+                });
+            }
+            if (closeSignupModal) {
+                closeSignupModal.addEventListener('click', () => {
+                    signupModal.style.display = 'none';
+                });
+            }
+            if (showSignupLink) {
+                showSignupLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loginModal.style.display = 'none';
+                    signupModal.style.display = 'block';
+                });
+            }
+            if (backToLoginLink) {
+                backToLoginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    signupModal.style.display = 'none';
+                    loginModal.style.display = 'block';
+                });
+            }
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal) loginModal.style.display = 'none';
+                if (e.target === signupModal) signupModal.style.display = 'none';
+            });
+    
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    if (!email || !password) { alert('Please fill in all fields'); return; }
+                    const fd = new FormData();
+                    fd.append('email', email);
+                    fd.append('password', password);
+                    fetch('login.php', { method: 'POST', body: fd, credentials: 'same-origin' })
+                      .then(r => r.json())
+                      .then(data => {
+                          if (data && data.success) {
+                              setLoggedIn(true);
+                              updateLoginUI();
+                              alert('Login successful!');
+                              loginModal.style.display = 'none';
+                              loginForm.reset();
+                              loadAndDisplayPlaces();
+                          } else {
+                              alert(data && data.message ? data.message : 'Login failed');
+                          }
+                      })
+                      .catch(err => { console.error('Login error', err); alert('Login request failed'); });
+                });
+            }
+    
+            if (signupForm) {
+                signupForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('signupName').value.trim();
+                    const email = document.getElementById('signupEmail').value.trim();
+                    const password = document.getElementById('signupPassword').value;
+                    const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
+                    if (!name || !email || !password || !passwordConfirm) { alert('Please fill in all fields'); return; }
+                    if (password !== passwordConfirm) { alert('Passwords do not match'); return; }
+                    const fd = new FormData();
+                    fd.append('name', name);
+                    fd.append('email', email);
+                    fd.append('password', password);
+                    fd.append('password_confirm', passwordConfirm);
+                    fetch('register.php', { method: 'POST', body: fd, credentials: 'same-origin' })
+                      .then(r => r.json())
+                      .then(data => {
+                          if (data && data.success) {
+                              alert('Registration successful! Please login.');
+                              signupModal.style.display = 'none';
+                              signupForm.reset();
+                              loginModal.style.display = 'block';
+                          } else {
+                              alert(data && data.message ? data.message : 'Registration failed');
+                          }
+                      })
+                      .catch(err => { console.error('Registration error', err); alert('Registration request failed'); });
+                });
+            }
+    
+            // Initial load
+            loadAndDisplayPlaces();
+        });
+    
+        // Fetch and display places in Excel-like table
+        async function loadAndDisplayPlaces() {
+            const placesContent = document.getElementById('placesContent');
+            if (!placesContent) return;
+    
+            if (!isLoggedIn()) {
+                placesContent.innerHTML = `
+                    <div class="empty-state">
+                        <p>Please log in to view places.</p>
+                        <a href="#" onclick="document.getElementById('loginBtn').click(); return false;">Login</a>
+                    </div>
+                `;
+                return;
+            }
+    
+            try {
+                const response = await fetch('places.php?action=list', { credentials: 'same-origin' });
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        setLoggedIn(false);
+                        updateLoginUI();
+                        placesContent.innerHTML = `
+                            <div class="error">Your session has expired. Please log in again.</div>
+                            <div class="empty-state">
+                                <a href="#" onclick="document.getElementById('loginBtn').click(); return false;">Login</a>
+                            </div>
+                        `;
+                        return;
+                    }
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+    
+                const text = await response.text();
+                let data;
+                try { data = JSON.parse(text); }
+                catch (e) { throw new Error('Invalid JSON response from server'); }
+    
+                if (!data.success) {
+                    placesContent.innerHTML = '<div class="error">Failed to load places: ' + (data.message || 'Unknown error') + '</div>';
+                    if (data.message && data.message.includes('Not logged in')) {
+                        setLoggedIn(false); updateLoginUI();
+                    }
+                    return;
+                }
+    
+                if (!data.places || data.places.length === 0) {
+                    placesContent.innerHTML = `
+                        <div class="empty-state">
+                            <p>No places found.</p>
+                            <a href="index.html">Go to Home</a>
+                        </div>
+                    `;
+                    return;
+                }
+    
+                allPlacesData = data.places;
+                renderPlacesTable(allPlacesData);
+            } catch (error) {
+                console.error('Error loading places:', error);
+                placesContent.innerHTML = '<div class="error">Error loading places: ' + error.message + '</div>';
+            }
+        }
+    
+        function renderPlacesTable(places) {
+            const placesContent = document.getElementById('placesContent');
+            if (!placesContent) return;
+
+            const locations = [...new Set(places.map(p => p.location || 'Other'))].sort();
+            
+            // Get current filter values BEFORE rebuilding the HTML
+            const searchInput = document.getElementById('placeSearch');
+            const filterSelect = document.getElementById('locationFilter');
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+            const locationFilter = filterSelect ? filterSelect.value : 'all';
+
+            let filteredPlaces = places.filter(place => {
+                const matchesSearch = !searchTerm ||
+                    (place.doctor_name && place.doctor_name.toLowerCase().includes(searchTerm)) ||
+                    (place.clinic_address && place.clinic_address.toLowerCase().includes(searchTerm)) ||
+                    (place.specialty && place.specialty.toLowerCase().includes(searchTerm)) ||
+                    (place.clinic_hours && place.clinic_hours.toLowerCase().includes(searchTerm));
+                const matchesLocation = locationFilter === 'all' || (place.location || 'Other') === locationFilter;
+                return matchesSearch && matchesLocation;
+            });
+
+            if (currentSortColumn) {
+                filteredPlaces.sort((a, b) => {
+                    let aVal = String(a[currentSortColumn] || '').toLowerCase();
+                    let bVal = String(b[currentSortColumn] || '').toLowerCase();
+                    return currentSortDirection === 'asc'
+                        ? (aVal > bVal ? 1 : aVal < bVal ? -1 : 0)
+                        : (aVal < bVal ? 1 : aVal > bVal ? -1 : 0);
+                });
+            }
+
+            // Build HTML with preserved filter and search values
+            let html = `
+                <div class="table-controls">
+                    <input type="text" 
+                           id="placeSearch" 
+                           class="search-box" 
+                           placeholder="Search by doctor, clinic, specialty, or hours..."
+                           value="${searchInput ? searchInput.value.replace(/"/g, '&quot;') : ''}"
+                           onkeyup="renderPlacesTable(allPlacesData)">
+                    <select id="locationFilter" 
+                            class="filter-select" 
+                            onchange="renderPlacesTable(allPlacesData)">
+                        <option value="all" ${locationFilter === 'all' ? 'selected' : ''}>All Locations</option>
+                        ${locations.map(loc => `<option value="${loc}" ${locationFilter === loc ? 'selected' : ''}>${loc}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="table-wrapper">
+                    <table class="places-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable" onclick="sortTable('location')">Location</th>
+                                <th class="sortable" onclick="sortTable('doctor_name')">Doctor Name</th>
+                                <th class="sortable" onclick="sortTable('clinic_address')">Hospital/Clinic</th>
+                                <th class="sortable" onclick="sortTable('specialty')">Specialty</th>
+                                <th class="sortable" onclick="sortTable('clinic_hours')">Clinic Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            if (filteredPlaces.length === 0) {
+                html += `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 30px; color: #999;">
+                            No places found matching your criteria.
+                        </td>
+                    </tr>
+                `;
+            } else {
+                filteredPlaces.forEach(place => {
+                    html += `
+                        <tr>
+                            <td>${place.location || 'Other'}</td>
+                            <td><strong>${place.doctor_name || '-'}</strong></td>
+                            <td>${place.clinic_address || '-'}</td>
+                            <td>${place.specialty || '-'}</td>
+                            <td>${place.clinic_hours || '-'}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-info">
+                    Showing ${filteredPlaces.length} of ${allPlacesData.length} places
+                </div>
+            `;
+
+            placesContent.innerHTML = html;
+            updateSortIndicators();
+        }
+    
+        function sortTable(column) {
+            if (currentSortColumn === column) {
+                currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortColumn = column;
+                currentSortDirection = 'asc';
+            }
+            renderPlacesTable(allPlacesData);
+        }
+    
+        function updateSortIndicators() {
+            document.querySelectorAll('.places-table th').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+                const onclickAttr = th.getAttribute('onclick');
+                if (onclickAttr) {
+                    const match = onclickAttr.match(/'(\w+)'/);
+                    if (match && match[1] === currentSortColumn) {
+                        th.classList.add(`sort-${currentSortDirection}`);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
