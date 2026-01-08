@@ -52,93 +52,99 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.auth-only').forEach(el => el.style.display = 'none');
     }
 
+    // ... existing code ...
     function updateContent(section) {
-    const mainContent = document.getElementById('mainContent');
+        const mainContent = document.getElementById('mainContent');
 
-    // Always hide the places section by default when switching content
-    const placesSec = document.getElementById('placesSection');
-    if (placesSec) placesSec.style.display = 'none';
+        // Always hide the places section by default when switching content
+        const placesSec = document.getElementById('placesSection');
+        if (placesSec) placesSec.style.display = 'none';
 
-    if (section === 'products') {
-        // products data source
-        const products = [
-            { img: 'img/product 1.jpg', images: [], pdf: '', title: 'TELSTAR', desc: 'N/A' },
-            { img: 'img/product 2.jpg', images: ['img/ROVASTIN/1.jpg', 'img/ROVASTIN/2.jpg', 'img/ROVASTIN/3.jpg', 'img/ROVASTIN/4.jpg', 'img/ROVASTIN/5.jpg'], pdf: 'productspdf/ROVASTIN_DL.pdf', title: 'ROVASTIN', desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.' },
-            { img: 'img/product 3.jpg', images: ['img/BETACARD/2.jpg', 'img/BETACARD/3.jpg', 'img/BETACARD/4.jpg'], pdf: 'productspdf/BETACARD_DL.pdf', title: 'BETACARD', desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.' },
-            { img: 'img/product 4.jpg', images: ['img/ANOION/1.jpg', 'img/ANOION/2.jpg', 'img/ANOION/3.jpg'], pdf: 'productspdf/ANOION.pdf', title: 'ANOION', desc: 'ANOION is a trusted, quality-assured, and affordable Amiodarone that helps patients with heart rhythm disorders stay in tune with life, offering over 18 years of proven efficacy and compliance support.' },
-            { img: 'img/product 5.jpg', images: [], pdf: '', title: 'AMLOTITAN', desc: 'N/A' },
-            { img: 'img/product 6.jpg', images: [], pdf: '', title: 'RILIXIA', desc: 'N/A' },
-            { img: 'img/product 7.jpg', images: ['img/PROTEK-GFR/1.jpg', 'img/PROTEK-GFR/2.jpg', 'img/PROTEK-GFR/3.jpg'], pdf: 'productspdf/PROTEK GFR_DL.pdf', title: 'PROTEK GFR', desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.' },
-            { img: 'img/TRYME MR.jpeg', images: ['img/TRYME_MR/1.jpg', 'img/TRYME_MR/2.jpg', 'img/TRYME_MR/3.jpg', 'img/TRYME_MR/4.jpg'], pdf: 'productspdf/TRYME MR_DL.pdf', title: 'TRYME MR', desc: 'TRYME MR is the smart choice for angina management—quality-tested, bioequivalent, and affordable, helping patients save while ensuring effective heart support as the metabolic energizer of the heart.' }
-            
-        ];
+        if (section === 'products') {
+            // products data source (kept same as before)
+            const products = [
+                { img: 'img/product 1.jpg', images: [], pdf: '', title: 'TELMISARTAN (TELSTAR) 40mg / 80mg', desc: 'N/A' },
+                { img: 'img/product 2.jpg', images: ['img/ROVASTIN/1.jpg', 'img/ROVASTIN/2.jpg', 'img/ROVASTIN/3.jpg', 'img/ROVASTIN/4.jpg', 'img/ROVASTIN/5.jpg'], pdf: 'productspdf/ROVASTIN_DL.pdf', title: 'ROSUVASTATIN (ROVASTIN) 10mg', desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.' },
+                { img: 'img/product 3.jpg', images: ['img/BETACARD/2.jpg', 'img/BETACARD/3.jpg', 'img/BETACARD/4.jpg'], pdf: 'productspdf/BETACARD_DL.pdf', title: 'CARVEDILOL (BETACARD) 6.25mg / 25mg', desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.' },
+                { img: 'img/product 4.jpg', images: ['img/ANOION/1.jpg', 'img/ANOION/2.jpg', 'img/ANOION/3.jpg'], pdf: 'productspdf/ANOION.pdf', title: 'AMIODARONE HYDROCHLORIDE (ANOION) 200mg', desc: 'ANOION is a trusted, quality-assured, and affordable Amiodarone that helps patients with heart rhythm disorders stay in tune with life, offering over 18 years of proven efficacy and compliance support.' },
+                { img: 'img/product 5.jpg', images: [], pdf: '', title: 'AMLODIPINE LOSARTAN (AMLOTITAN) 5mg / 50mg, 5mg / 100mg', desc: 'N/A' },
+                { img: 'img/product 6.jpg', images: [], pdf: '', title: 'ETORICOXIB (RILAXIA) 120mg', desc: 'N/A' },
+                { img: 'img/product 7.jpg', images: ['img/PROTEK-GFR/1.jpg', 'img/PROTEK-GFR/2.jpg', 'img/PROTEK-GFR/3.jpg'], pdf: 'productspdf/PROTEK GFR_DL.pdf', title: 'KETOANALOGUES + ESSENTIAL AMINO ACIDS (PROTEK - GFR)', desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.' },
+                { img: 'img/TRYME MR.jpeg', images: ['img/TRYME_MR/1.jpg', 'img/TRYME_MR/2.jpg', 'img/TRYME_MR/3.jpg', 'img/TRYME_MR/4.jpg'], pdf: 'productspdf/TRYME MR_DL.pdf', title: 'TRIMETAZIDINE HCI (TRYME MR) 35mg', desc: 'TRYME MR is the smart choice for angina management—quality-tested, bioequivalent, and affordable, helping patients save while ensuring effective heart support as the metabolic energizer of the heart.' }
+            ];
 
-        const isMobile = window.innerWidth <= 768;
-        const containerHtml = `
+            const isMobile = window.innerWidth <= 768;
+            const containerHtml = `
             <div class="card">
                 <h3 style="margin-bottom: 20px;">Products Services Portfolio</h3>
                 <div id="productContainer"></div>
             </div>`;
 
-        mainContent.innerHTML = containerHtml;
-        const productContainer = document.getElementById('productContainer');
+            mainContent.innerHTML = containerHtml;
+            const productContainer = document.getElementById('productContainer');
 
-        if (!isMobile) {
-            // Desktop/tablet: show all products in a grid
-            const grid = document.createElement('div');
-            grid.className = 'product-grid';
-            products.forEach(p => {
-                const item = document.createElement('div');
-                item.className = 'product-item';
-                const downloadBtn = p.pdf ? `<a href="${p.pdf}" download class="btn-download" title="Download PDF">📥 Download PDF</a>` : '';
-                const imagesCount = (p.images && p.images.length) ? p.images.length : 0;
-                const pdfBadge = p.pdf ? `<span class="badge pdf-badge" title="PDF available"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H8a2 2 0 00-2 2v4h2V4h11v16H8v-4H6v4a2 2 0 002 2h11a2 2 0 002-2V4a2 2 0 00-2-2z" fill="currentColor"/></svg></span>` : '';
-                const imgBadge = imagesCount > 1 ? `<span class="badge img-badge" title="${imagesCount} images"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14h18zM5 5h14v14H5V5zm3 9l2.5-3 3.5 4.5H8z" fill="currentColor"/></svg><span class="badge-count">${imagesCount}</span></span>` : '';
-                item.innerHTML = `
+            if (!isMobile) {
+                // Desktop/tablet: show all products in a grid
+                const grid = document.createElement('div');
+                grid.className = 'product-grid';
+                products.forEach(p => {
+                    const item = document.createElement('div');
+                    item.className = 'product-item';
+                    const downloadBtn = p.pdf ? `<a href="${p.pdf}" download class="btn-download" title="Download PDF">📥 Download PDF</a>` : '';
+                    const imagesCount = (p.images && p.images.length) ? p.images.length : 0;
+                    const pdfBadge = p.pdf ? `<span class="badge pdf-badge" title="PDF available"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H8a2 2 0 00-2 2v4h2V4h11v16H8v-4H6v4a2 2 0 002 2h11a2 2 0 002-2V4a2 2 0 00-2-2z" fill="currentColor"/></svg></span>` : '';
+                    const imgBadge = imagesCount > 1 ? `<span class="badge img-badge" title="${imagesCount} images"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14h18zM5 5h14v14H5V5zm3 9l2.5-3 3.5 4.5H8z" fill="currentColor"/></svg><span class="badge-count">${imagesCount}</span></span>` : '';
+                    
+                    // UPDATED: The .product-hint div now contains the Title explicitly
+                    item.innerHTML = `
                     <div class="product-badges">${pdfBadge}${imgBadge}</div>
-                    <img src="${p.img}" alt="${p.title}" title="Click to view images" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
-                    <div class="product-hint">Click image to view</div>
+                    <img src="${p.img}" alt="${p.title}" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
+                    <div class="product-hint" style="font-weight:bold;">${p.title}</div>
                     <div class="product-info">
                         <h4>${p.title}</h4>
                         <p>${p.desc}</p>
                         ${downloadBtn}
                     </div>`;
-                grid.appendChild(item);
-            });
-            productContainer.appendChild(grid);
-            return;
-        }
+                    grid.appendChild(item);
+                });
+                productContainer.appendChild(grid);
+                return;
+            }
 
-        // Mobile: paginate products, 3 per page with Next button and remaining count
-        const pageSize = 3;
-        let page = 0;
+            // Mobile: paginate products
+            const pageSize = 3;
+            let page = 0;
 
-        function renderPage() {
-            const start = page * pageSize;
-            const pageItems = products.slice(start, start + pageSize);
+            function renderPage() {
+                const start = page * pageSize;
+                const pageItems = products.slice(start, start + pageSize);
 
-            productContainer.innerHTML = '';
+                productContainer.innerHTML = '';
 
-            const grid = document.createElement('div');
-            grid.className = 'product-grid';
-            pageItems.forEach(p => {
-                const item = document.createElement('div');
-                item.className = 'product-item';
-                const downloadBtn = p.pdf ? `<a href="${p.pdf}" download class="btn-download" title="Download PDF">📥 Download PDF</a>` : '';
-                const imagesCount = (p.images && p.images.length) ? p.images.length : 0;
-                const pdfBadge = p.pdf ? `<span class="badge pdf-badge" title="PDF available"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H8a2 2 0 00-2 2v4h2V4h11v16H8v-4H6v4a2 2 0 002 2h11a2 2 0 002-2V4a2 2 0 00-2-2z" fill="currentColor"/></svg></span>` : '';
-                const imgBadge = imagesCount > 1 ? `<span class="badge img-badge" title="${imagesCount} images"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14h18zM5 5h14v14H5V5zm3 9l2.5-3 3.5 4.5H8z" fill="currentColor"/></svg><span class="badge-count">${imagesCount}</span></span>` : '';
-                item.innerHTML = `
+                const grid = document.createElement('div');
+                grid.className = 'product-grid';
+                pageItems.forEach(p => {
+                    const item = document.createElement('div');
+                    item.className = 'product-item';
+                    const downloadBtn = p.pdf ? `<a href="${p.pdf}" download class="btn-download" title="Download PDF">📥 Download PDF</a>` : '';
+                    const imagesCount = (p.images && p.images.length) ? p.images.length : 0;
+                    const pdfBadge = p.pdf ? `<span class="badge pdf-badge" title="PDF available"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H8a2 2 0 00-2 2v4h2V4h11v16H8v-4H6v4a2 2 0 002 2h11a2 2 0 002-2V4a2 2 0 00-2-2z" fill="currentColor"/></svg></span>` : '';
+                    const imgBadge = imagesCount > 1 ? `<span class="badge img-badge" title="${imagesCount} images"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14h18zM5 5h14v14H5V5zm3 9l2.5-3 3.5 4.5H8z" fill="currentColor"/></svg><span class="badge-count">${imagesCount}</span></span>` : '';
+                    
+                    // UPDATED: The .product-hint div now contains the Title explicitly
+                    item.innerHTML = `
                     <div class="product-badges">${pdfBadge}${imgBadge}</div>
-                    <img src="${p.img}" alt="${p.title}" title="Click to view images" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
-                    <div class="product-hint">Click image to view</div>
+                    <img src="${p.img}" alt="${p.title}" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
+                    <div class="product-hint" style="font-weight:bold;">${p.title}</div>
                     <div class="product-info">
                         <h4>${p.title}</h4>
                         <p>${p.desc}</p>
                         ${downloadBtn}
                     </div>`;
-                grid.appendChild(item);
-            });
+                    grid.appendChild(item);
+                });
+
+// ... rest of the code (pager logic) ...
 
             const pager = document.createElement('div');
             pager.className = 'pager';
