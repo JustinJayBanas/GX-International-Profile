@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             const section = link.getAttribute('data-section');
-            
+
             // Only prevent default and handle section switching if data-section exists
             if (section) {
                 e.preventDefault();
@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.auth-only').forEach(el => el.style.display = 'none');
     }
 
-    // ... existing code ...
     function updateContent(section) {
         const mainContent = document.getElementById('mainContent');
 
@@ -61,16 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (placesSec) placesSec.style.display = 'none';
 
         if (section === 'products') {
-            // products data source (kept same as before)
             const products = [
-                { img: 'img/product 1.jpg', images: [], pdf: '', title: 'TELMISARTAN (TELSTAR) 40mg / 80mg', desc: 'N/A' },
-                { img: 'img/product 2.jpg', images: ['img/ROVASTIN/1.jpg', 'img/ROVASTIN/2.jpg', 'img/ROVASTIN/3.jpg', 'img/ROVASTIN/4.jpg', 'img/ROVASTIN/5.jpg'], pdf: 'productspdf/ROVASTIN_DL.pdf', title: 'ROSUVASTATIN (ROVASTIN) 10mg', desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.' },
-                { img: 'img/product 3.jpg', images: ['img/BETACARD/2.jpg', 'img/BETACARD/3.jpg', 'img/BETACARD/4.jpg'], pdf: 'productspdf/BETACARD_DL.pdf', title: 'CARVEDILOL (BETACARD) 6.25mg / 25mg', desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.' },
-                { img: 'img/product 4.jpg', images: ['img/ANOION/1.jpg', 'img/ANOION/2.jpg', 'img/ANOION/3.jpg'], pdf: 'productspdf/ANOION.pdf', title: 'AMIODARONE HYDROCHLORIDE (ANOION) 200mg', desc: 'ANOION is a trusted, quality-assured, and affordable Amiodarone that helps patients with heart rhythm disorders stay in tune with life, offering over 18 years of proven efficacy and compliance support.' },
-                { img: 'img/product 5.jpg', images: [], pdf: '', title: 'AMLODIPINE LOSARTAN (AMLOTITAN) 5mg / 50mg, 5mg / 100mg', desc: 'N/A' },
-                { img: 'img/product 6.jpg', images: [], pdf: '', title: 'ETORICOXIB (RILAXIA) 120mg', desc: 'N/A' },
-                { img: 'img/product 7.jpg', images: ['img/PROTEK-GFR/1.jpg', 'img/PROTEK-GFR/2.jpg', 'img/PROTEK-GFR/3.jpg'], pdf: 'productspdf/PROTEK GFR_DL.pdf', title: 'KETOANALOGUES + ESSENTIAL AMINO ACIDS (PROTEK - GFR)', desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.' },
-                { img: 'img/TRYME MR.jpeg', images: ['img/TRYME_MR/1.jpg', 'img/TRYME_MR/2.jpg', 'img/TRYME_MR/3.jpg', 'img/TRYME_MR/4.jpg'], pdf: 'productspdf/TRYME MR_DL.pdf', title: 'TRIMETAZIDINE HCI (TRYME MR) 35mg', desc: 'TRYME MR is the smart choice for angina management—quality-tested, bioequivalent, and affordable, helping patients save while ensuring effective heart support as the metabolic energizer of the heart.' }
+                { img: 'img/product 1.jpg', images: [], pdf: '', title: '(TELSTAR) Telmisartan 40mg / 80mg', desc: 'N/A' },
+                { img: 'img/product 2.jpg', images: ['img/ROVASTIN/1.jpg', 'img/ROVASTIN/2.jpg', 'img/ROVASTIN/3.jpg', 'img/ROVASTIN/4.jpg', 'img/ROVASTIN/5.jpg'], pdf: 'productspdf/ROVASTIN_DL.pdf', title: '(ROVASTIN) Rosuvastatin 10mg', desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.' },
+                { img: 'img/product 3.jpg', images: ['img/BETACARD/2.jpg', 'img/BETACARD/3.jpg', 'img/BETACARD/4.jpg'], pdf: 'productspdf/BETACARD_DL.pdf', title: '(BETACARD) Carvedilol 6.25mg / 25mg', desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.' },
+                { img: 'img/product 4.jpg', images: ['img/ANOION/1.jpg', 'img/ANOION/2.jpg', 'img/ANOION/3.jpg'], pdf: 'productspdf/ANOION.pdf', title: '(ANOION) Amiodarone Hydrochloride 200mg', desc: 'ANOION is a trusted, quality-assured, and affordable Amiodarone that helps patients with heart rhythm disorders stay in tune with life, offering over 18 years of proven efficacy and compliance support.' },
+                { img: 'img/product 5.jpg', images: [], pdf: '', title: '(AMLOTITAN) Amlodipine Losartan 5mg / 50mg, 5mg / 100mg', desc: 'N/A' },
+                { img: 'img/product 6.jpg', images: [], pdf: '', title: '(RILAXIA) Etoricoxib 120mg', desc: 'N/A' },
+                { img: 'img/product 7.jpg', images: ['img/PROTEK-GFR/1.jpg', 'img/PROTEK-GFR/2.jpg', 'img/PROTEK-GFR/3.jpg'], pdf: 'productspdf/PROTEK GFR_DL.pdf', title: '(PROTEK - GFR) Ketoanalogues + Essential Amino Acids', desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.' },
+                { img: 'img/TRYME MR.jpeg', images: ['img/TRYME_MR/1.jpg', 'img/TRYME_MR/2.jpg', 'img/TRYME_MR/3.jpg', 'img/TRYME_MR/4.jpg'], pdf: 'productspdf/TRYME MR_DL.pdf', title: '(TRYME MR) Trimetazidine HCl 35mg', desc: 'TRYME MR is the smart choice for angina management—quality-tested, bioequivalent, and affordable, helping patients save while ensuring effective heart support as the metabolic energizer of the heart.' }
             ];
 
             const isMobile = window.innerWidth <= 768;
@@ -83,6 +81,29 @@ document.addEventListener('DOMContentLoaded', () => {
             mainContent.innerHTML = containerHtml;
             const productContainer = document.getElementById('productContainer');
 
+            // --- HELPER FUNCTION TO HIGHLIGHT PARENTHESES CONTENT ---
+            function formatTitle(title) {
+                if (!title) return '';
+                
+                // 1. Look for the closing parenthesis ')'
+                const closingParenIndex = title.indexOf(')');
+                
+                // 2. If found, highlight everything up to that parenthesis
+                if (closingParenIndex !== -1) {
+                    const highlightPart = title.slice(0, closingParenIndex + 1);
+                    const restPart = title.slice(closingParenIndex + 1);
+                    return `<span class="title-highlight">${highlightPart}</span>${restPart}`;
+                }
+                
+                // 3. Fallback: If no parenthesis, try splitting by space
+                const firstSpaceIndex = title.indexOf(' ');
+                if (firstSpaceIndex === -1) {
+                    return `<span class="title-highlight">${title}</span>`;
+                }
+                return `<span class="title-highlight">${title.slice(0, firstSpaceIndex)}</span>${title.slice(firstSpaceIndex)}`;
+            }
+            // --------------------------------------------------------
+
             if (!isMobile) {
                 // Desktop/tablet: show all products in a grid
                 const grid = document.createElement('div');
@@ -94,14 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     const imagesCount = (p.images && p.images.length) ? p.images.length : 0;
                     const pdfBadge = p.pdf ? `<span class="badge pdf-badge" title="PDF available"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H8a2 2 0 00-2 2v4h2V4h11v16H8v-4H6v4a2 2 0 002 2h11a2 2 0 002-2V4a2 2 0 00-2-2z" fill="currentColor"/></svg></span>` : '';
                     const imgBadge = imagesCount > 1 ? `<span class="badge img-badge" title="${imagesCount} images"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14h18zM5 5h14v14H5V5zm3 9l2.5-3 3.5 4.5H8z" fill="currentColor"/></svg><span class="badge-count">${imagesCount}</span></span>` : '';
-                    
-                    // UPDATED: The .product-hint div now contains the Title explicitly
+
                     item.innerHTML = `
                     <div class="product-badges">${pdfBadge}${imgBadge}</div>
                     <img src="${p.img}" alt="${p.title}" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
-                    <div class="product-hint" style="font-weight:bold;">${p.title}</div>
+                    
+                    <div class="product-hint" style="font-weight:bold;">${formatTitle(p.title)}</div>
+                    
                     <div class="product-info">
-                        <h4>${p.title}</h4>
+                        <h4>${formatTitle(p.title)}</h4>
                         <p>${p.desc}</p>
                         ${downloadBtn}
                     </div>`;
@@ -130,66 +152,64 @@ document.addEventListener('DOMContentLoaded', () => {
                     const imagesCount = (p.images && p.images.length) ? p.images.length : 0;
                     const pdfBadge = p.pdf ? `<span class="badge pdf-badge" title="PDF available"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H8a2 2 0 00-2 2v4h2V4h11v16H8v-4H6v4a2 2 0 002 2h11a2 2 0 002-2V4a2 2 0 00-2-2z" fill="currentColor"/></svg></span>` : '';
                     const imgBadge = imagesCount > 1 ? `<span class="badge img-badge" title="${imagesCount} images"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14h18zM5 5h14v14H5V5zm3 9l2.5-3 3.5 4.5H8z" fill="currentColor"/></svg><span class="badge-count">${imagesCount}</span></span>` : '';
-                    
-                    // UPDATED: The .product-hint div now contains the Title explicitly
+
                     item.innerHTML = `
                     <div class="product-badges">${pdfBadge}${imgBadge}</div>
                     <img src="${p.img}" alt="${p.title}" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
-                    <div class="product-hint" style="font-weight:bold;">${p.title}</div>
+                    
+                    <div class="product-hint" style="font-weight:bold;">${formatTitle(p.title)}</div>
+                    
                     <div class="product-info">
-                        <h4>${p.title}</h4>
+                        <h4>${formatTitle(p.title)}</h4>
                         <p>${p.desc}</p>
                         ${downloadBtn}
                     </div>`;
                     grid.appendChild(item);
                 });
 
-// ... rest of the code (pager logic) ...
+                const pager = document.createElement('div');
+                pager.className = 'pager';
 
-            const pager = document.createElement('div');
-            pager.className = 'pager';
+                const remaining = Math.max(0, products.length - (start + pageItems.length));
+                const remainingEl = document.createElement('div');
+                remainingEl.className = 'remaining';
+                remainingEl.textContent = remaining > 0 ? `${remaining} more product${remaining > 1 ? 's' : ''}` : 'No more products';
 
-            const remaining = Math.max(0, products.length - (start + pageItems.length));
-            const remainingEl = document.createElement('div');
-            remainingEl.className = 'remaining';
-            remainingEl.textContent = remaining > 0 ? `${remaining} more product${remaining > 1 ? 's' : ''}` : 'No more products';
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'btn-next';
+                nextBtn.textContent = 'Next';
+                nextBtn.disabled = remaining === 0;
 
-            const nextBtn = document.createElement('button');
-            nextBtn.className = 'btn-next';
-            nextBtn.textContent = 'Next';
-            nextBtn.disabled = remaining === 0;
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'btn-prev';
+                prevBtn.textContent = 'Previous';
+                prevBtn.disabled = page === 0;
 
+                prevBtn.addEventListener('click', () => {
+                    if (page > 0) {
+                        page -= 1;
+                        renderPage();
+                    }
+                });
 
-            const prevBtn = document.createElement('button');
-            prevBtn.className = 'btn-prev';
-            prevBtn.textContent = 'Previous';
-            prevBtn.disabled = page === 0;
+                nextBtn.addEventListener('click', () => {
+                    if (remaining > 0) {
+                        page += 1;
+                        renderPage();
+                    }
+                });
 
-            prevBtn.addEventListener('click', () => {
-                if (page > 0) {
-                    page -= 1;
-                    renderPage();
-                }
-            });
+                pager.appendChild(prevBtn);
+                pager.appendChild(remainingEl);
+                pager.appendChild(nextBtn);
 
-            nextBtn.addEventListener('click', () => {
-                if (remaining > 0) {
-                    page += 1;
-                    renderPage();
-                }
-            });
+                productContainer.appendChild(grid);
+                productContainer.appendChild(pager);
+            }
 
-            pager.appendChild(prevBtn);
-            pager.appendChild(remainingEl);
-            pager.appendChild(nextBtn);
-
-            productContainer.appendChild(grid);
-            productContainer.appendChild(pager);
-        }
-
-        renderPage();
-    } else if (section === 'contacts') {
-        mainContent.innerHTML = `
+            renderPage();
+        } else if (section === 'contacts') {
+            mainContent.innerHTML = `
             <div class="card contact-card">
                 <h3>Contact Information</h3>
                 <div class="contact-grid">
@@ -249,26 +269,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             </div>`;
-    } else {
-        // This handles the "Profile" tab
-        if (section === 'places') {
-            // Show the Place manager in the main view
-            document.querySelectorAll('#mainContent .card').forEach(c => c.style.display = 'none');
-            const ps = document.getElementById('placesSection');
-            if (ps) {
-                ps.style.display = 'block';
-                ps.scrollIntoView({behavior: 'smooth'});
-                renderPlaces();
+        } else {
+            // This handles the "Profile" tab
+            if (section === 'places') {
+                // Show the Place manager in the main view
+                document.querySelectorAll('#mainContent .card').forEach(c => c.style.display = 'none');
+                const ps = document.getElementById('placesSection');
+                if (ps) {
+                    ps.style.display = 'block';
+                    ps.scrollIntoView({ behavior: 'smooth' });
+                    renderPlaces();
+                    return;
+                }
+            }
+            if (section === 'saved_schedules') {
+                window.location.href = 'saved_schedules.html';
                 return;
             }
+            location.reload();
         }
-        if (section === 'saved_schedules') {
-            window.location.href = 'saved_schedules.html';
-            return;
-        }
-        location.reload(); 
     }
-}
 
     // 3. Login Event
     const loginModal = document.getElementById('loginModal');
@@ -356,19 +376,19 @@ document.addEventListener('DOMContentLoaded', () => {
             body: fd,
             credentials: 'same-origin'
         }).then(r => r.json())
-          .then(data => {
-              if (data && data.success) {
-                  alert(data.message);
-                  signupModal.style.display = 'none';
-                  signupForm.reset();
-                  loginModal.style.display = 'block';
-              } else {
-                  alert(data && data.message ? data.message : 'Registration failed');
-              }
-          }).catch(err => {
-              console.error('Registration error', err);
-              alert('Registration request failed');
-          });
+            .then(data => {
+                if (data && data.success) {
+                    alert(data.message);
+                    signupModal.style.display = 'none';
+                    signupForm.reset();
+                    loginModal.style.display = 'block';
+                } else {
+                    alert(data && data.message ? data.message : 'Registration failed');
+                }
+            }).catch(err => {
+                console.error('Registration error', err);
+                alert('Registration request failed');
+            });
     });
 
 
@@ -394,21 +414,21 @@ document.addEventListener('DOMContentLoaded', () => {
             body: fd,
             credentials: 'same-origin'
         }).then(r => r.json())
-          .then(data => {
-              if (data && data.success) {
-                  setLoggedIn(true);
-                  loginBtn.textContent = 'Logout';
-                showAuthLinks();
-                alert('Login successful!');
-                loginModal.style.display = 'none';
-                loginForm.reset();
-              } else {
-                  alert(data && data.message ? data.message : 'Login failed');
-              }
-          }).catch(err => {
-              console.error('Login error', err);
-              alert('Login request failed');
-          });
+            .then(data => {
+                if (data && data.success) {
+                    setLoggedIn(true);
+                    loginBtn.textContent = 'Logout';
+                    showAuthLinks();
+                    alert('Login successful!');
+                    loginModal.style.display = 'none';
+                    loginForm.reset();
+                } else {
+                    alert(data && data.message ? data.message : 'Login failed');
+                }
+            }).catch(err => {
+                console.error('Login error', err);
+                alert('Login request failed');
+            });
     });
 
     // Places logic (DB-backed via places.php)
@@ -430,9 +450,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .then(data => (data && data.success) ? (data.places || []) : [])
-            .catch(err => { 
-                console.error('Load places error:', err); 
-                return []; 
+            .catch(err => {
+                console.error('Load places error:', err);
+                return [];
             });
     }
 
@@ -445,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fd.append('clinic_hours', clinicHours);
         fd.append('location', location);
 
-        console.log('Sending place data:', {doctorName, clinicAddress, specialty, clinicHours, location});
+        console.log('Sending place data:', { doctorName, clinicAddress, specialty, clinicHours, location });
 
         return fetch('places.php', { method: 'POST', body: fd, credentials: 'same-origin' })
             .then(r => {
@@ -469,10 +489,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(data && data.message ? data.message : 'Failed to add place');
                 return false;
             })
-            .catch(err => { 
-                console.error('Add place error:', err); 
-                alert('Add place request failed: ' + err.message); 
-                return false; 
+            .catch(err => {
+                console.error('Add place error:', err);
+                alert('Add place request failed: ' + err.message);
+                return false;
             });
     }
 
@@ -501,68 +521,68 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(data && data.message ? data.message : 'Failed to delete place');
                 return false;
             })
-            .catch(err => { 
-                console.error('Delete place error:', err); 
-                alert('Delete place request failed: ' + err.message); 
-                return false; 
+            .catch(err => {
+                console.error('Delete place error:', err);
+                alert('Delete place request failed: ' + err.message);
+                return false;
             });
     }
 
     // Add these variables to your global state or inside DOMContentLoaded
-let isPlacesVisible = true;
+    let isPlacesVisible = true;
 
-// 1. Toggle Visibility Logic
-const toggleBtn = document.getElementById('togglePlacesBtn');
-if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-        isPlacesVisible = !isPlacesVisible;
-        const container = document.getElementById('placeListContainer');
-        container.style.display = isPlacesVisible ? 'block' : 'none';
-        toggleBtn.textContent = isPlacesVisible ? 'Hide Places' : 'Show Places';
-    });
-}
-
-// 2. Filter Logic
-const listSearch = document.getElementById('listSearch');
-if (listSearch) {
-    listSearch.addEventListener('input', () => renderPlaces());
-}
-
-function renderPlaces() {
-    const section = document.getElementById('placesSection');
-    if (!isLoggedIn()) { if(section) section.style.display = 'none'; return; }
-    
-    loadPlaces().then(list => {
-        const container = document.getElementById('placeList');
-        
-        // Get filter values from the UI
-        const filterInput = document.getElementById('placeListFilter');
-        const filterText = filterInput ? filterInput.value.toLowerCase() : '';
-        
-        const locationFilterInput = document.getElementById('placeLocationFilter');
-        const selectedLocation = locationFilterInput ? locationFilterInput.value : 'all';
-        
-        container.innerHTML = '';
-
-        // Combined Filtering Logic
-        const filteredList = list.filter(it => {
-            const matchesSearch = it.doctor_name.toLowerCase().includes(filterText) || 
-                                  it.specialty.toLowerCase().includes(filterText);
-            
-            const matchesLocation = (selectedLocation === 'all') || (it.location === selectedLocation);
-            
-            return matchesSearch && matchesLocation;
+    // 1. Toggle Visibility Logic
+    const toggleBtn = document.getElementById('togglePlacesBtn');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            isPlacesVisible = !isPlacesVisible;
+            const container = document.getElementById('placeListContainer');
+            container.style.display = isPlacesVisible ? 'block' : 'none';
+            toggleBtn.textContent = isPlacesVisible ? 'Hide Places' : 'Show Places';
         });
+    }
 
-        if (filteredList.length === 0) {
-            container.innerHTML = '<div class="meta" style="padding:10px;">No matching places found.</div>';
-            return;
-        }
+    // 2. Filter Logic
+    const listSearch = document.getElementById('listSearch');
+    if (listSearch) {
+        listSearch.addEventListener('input', () => renderPlaces());
+    }
 
-        filteredList.forEach((it) => {
-            const el = document.createElement('div');
-            el.className = 'schedule-item';
-            el.innerHTML = `
+    function renderPlaces() {
+        const section = document.getElementById('placesSection');
+        if (!isLoggedIn()) { if (section) section.style.display = 'none'; return; }
+
+        loadPlaces().then(list => {
+            const container = document.getElementById('placeList');
+
+            // Get filter values from the UI
+            const filterInput = document.getElementById('placeListFilter');
+            const filterText = filterInput ? filterInput.value.toLowerCase() : '';
+
+            const locationFilterInput = document.getElementById('placeLocationFilter');
+            const selectedLocation = locationFilterInput ? locationFilterInput.value : 'all';
+
+            container.innerHTML = '';
+
+            // Combined Filtering Logic
+            const filteredList = list.filter(it => {
+                const matchesSearch = it.doctor_name.toLowerCase().includes(filterText) ||
+                    it.specialty.toLowerCase().includes(filterText);
+
+                const matchesLocation = (selectedLocation === 'all') || (it.location === selectedLocation);
+
+                return matchesSearch && matchesLocation;
+            });
+
+            if (filteredList.length === 0) {
+                container.innerHTML = '<div class="meta" style="padding:10px;">No matching places found.</div>';
+                return;
+            }
+
+            filteredList.forEach((it) => {
+                const el = document.createElement('div');
+                el.className = 'schedule-item';
+                el.innerHTML = `
                 <div class="left">
                     <strong>${escapeHtml(it.doctor_name)}</strong>
                     <div class="meta">${escapeHtml(it.specialty)} · ${escapeHtml(it.clinic_address)}</div>
@@ -573,98 +593,71 @@ function renderPlaces() {
                     <button class="btn-del" data-id="${it.id}">Delete</button>
                 </div>`;
 
-            // EDIT BUTTON LOGIC: Fills the top form with this item's data
-            el.querySelector('.btn-edit').addEventListener('click', () => {
-                document.getElementById('doctorName').value = it.doctor_name;
-                document.getElementById('location').value = it.location;
-                
-                // Trigger the clinic dropdown update
-                const locationSelect = document.getElementById('location');
-                locationSelect.dispatchEvent(new Event('change'));
-                document.getElementById('clinicAddress').value = it.clinic_address;
-                
-                document.getElementById('specialty').value = it.specialty;
-                document.getElementById('clinicHours').value = it.clinic_hours;
+                // EDIT BUTTON LOGIC: Fills the top form with this item's data
+                el.querySelector('.btn-edit').addEventListener('click', () => {
+                    document.getElementById('doctorName').value = it.doctor_name;
+                    document.getElementById('location').value = it.location;
 
-                // Set form state to "Update"
-                const placeForm = document.getElementById('placeForm');
-                placeForm.dataset.editId = it.id;
-                placeForm.querySelector('button[type="submit"]').textContent = 'Update Place';
-                placeForm.scrollIntoView({ behavior: 'smooth' });
+                    // Trigger the clinic dropdown update
+                    const locationSelect = document.getElementById('location');
+                    locationSelect.dispatchEvent(new Event('change'));
+                    document.getElementById('clinicAddress').value = it.clinic_address;
+
+                    document.getElementById('specialty').value = it.specialty;
+                    document.getElementById('clinicHours').value = it.clinic_hours;
+
+                    // Set form state to "Update"
+                    const placeForm = document.getElementById('placeForm');
+                    placeForm.dataset.editId = it.id;
+                    placeForm.querySelector('button[type="submit"]').textContent = 'Update Place';
+                    placeForm.scrollIntoView({ behavior: 'smooth' });
+                });
+
+                // DELETE LOGIC
+                el.querySelector('.btn-del').addEventListener('click', async () => {
+                    if (!confirm('Delete this place?')) return;
+                    const success = await deletePlace(it.id);
+                    if (success) renderPlaces();
+                });
+
+                container.appendChild(el);
             });
-
-            // DELETE LOGIC
-            el.querySelector('.btn-del').addEventListener('click', async () => {
-                if (!confirm('Delete this place?')) return;
-                const success = await deletePlace(it.id);
-                if (success) renderPlaces();
-            });
-
-            container.appendChild(el);
         });
-    });
-}
-// 4. Helper to Populate Form for Editing
-function populateFormForEdit(place) {
-    document.getElementById('doctorName').value = place.doctor_name;
-    document.getElementById('location').value = place.location;
-    
-    // Trigger location change to update clinic dropdown
-    const event = new Event('change');
-    document.getElementById('location').dispatchEvent(event);
-    
-    document.getElementById('clinicAddress').value = place.clinic_address;
-    document.getElementById('specialty').value = place.specialty;
-    document.getElementById('clinicHours').value = place.clinic_hours;
-    
-    // Change form behavior to "Update"
-    const submitBtn = document.querySelector('#placeForm .btn-submit') || document.querySelector('#placeForm button[type="submit"]');
-    submitBtn.textContent = 'Update Place';
-    
-    // Store the ID being edited on the form
-    document.getElementById('placeForm').dataset.editId = place.id;
-    
-    // Scroll to form
-    document.getElementById('placeForm').scrollIntoView({behavior: 'smooth'});
-}
+    }
 
     function escapeHtml(str) {
         if (!str) return '';
         return String(str).replace(/[&<>"']/g, function (s) {
-            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]);
+            return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]);
         });
     }
 
-    /* --- Placement in script.js --- */
+    /* --- Filter Listeners & Form Logic --- */
 
-/* --- Inside script.js --- */
+    const placeForm = document.getElementById('placeForm');
+    const locationSelect = document.getElementById('location');
+    const clinicAddressSelect = document.getElementById('clinicAddress');
 
-// 1. Find where you defined these:
-const placeForm = document.getElementById('placeForm');
-const locationSelect = document.getElementById('location');
-const clinicAddressSelect = document.getElementById('clinicAddress');
+    const placeListFilter = document.getElementById('placeListFilter');
+    if (placeListFilter) {
+        placeListFilter.addEventListener('input', () => {
+            renderPlaces();
+        });
+    }
 
-// 2. Paste the new listeners here:
-const placeListFilter = document.getElementById('placeListFilter');
-if (placeListFilter) {
-    placeListFilter.addEventListener('input', () => {
-        renderPlaces(); 
-    });
-}
-
-const placeLocationFilter = document.getElementById('placeLocationFilter');
-if (placeLocationFilter) {
-    placeLocationFilter.addEventListener('change', () => {
-        renderPlaces(); 
-    });
-}
+    const placeLocationFilter = document.getElementById('placeLocationFilter');
+    if (placeLocationFilter) {
+        placeLocationFilter.addEventListener('change', () => {
+            renderPlaces();
+        });
+    }
 
     // Update clinic address dropdown when location changes
     if (locationSelect) {
         locationSelect.addEventListener('change', (e) => {
             const location = e.target.value;
             clinicAddressSelect.innerHTML = '<option value="">-- Select Hospital/Clinic --</option>';
-            
+
             if (location && CLINIC_LOCATIONS[location]) {
                 CLINIC_LOCATIONS[location].forEach(clinic => {
                     const option = document.createElement('option');
@@ -677,63 +670,63 @@ if (placeLocationFilter) {
     }
 
     if (placeForm) {
-    placeForm.addEventListener('submit', async (ev) => {
-        ev.preventDefault();
-        const location = document.getElementById('location').value.trim();
-        const doctorName = document.getElementById('doctorName').value.trim();
-        const clinicAddress = document.getElementById('clinicAddress').value.trim();
-        const specialty = document.getElementById('specialty').value.trim();
-        const clinicHours = document.getElementById('clinicHours').value.trim();
+        placeForm.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const location = document.getElementById('location').value.trim();
+            const doctorName = document.getElementById('doctorName').value.trim();
+            const clinicAddress = document.getElementById('clinicAddress').value.trim();
+            const specialty = document.getElementById('specialty').value.trim();
+            const clinicHours = document.getElementById('clinicHours').value.trim();
 
-        // Validation Pattern
-        const hoursPattern = /^(M|T|W|Th|F|Sa|Su)(-(M|T|W|Th|F|Sa|Su))?\s+\d{1,2}(?::\d{2})?\s*-\s*\d{1,2}(?::\d{2})?$/i;
+            // Validation Pattern
+            const hoursPattern = /^(M|T|W|Th|F|Sa|Su)(-(M|T|W|Th|F|Sa|Su))?\s+\d{1,2}(?::\d{2})?\s*-\s*\d{1,2}(?::\d{2})?$/i;
 
-        if (!hoursPattern.test(clinicHours)) {
-            alert('Clinic hours must match formats like "M-F 8-12" or "M 7-12" using day initials.');
-            return;
-        }
-
-        if (!location || !doctorName || !clinicAddress || !specialty || !clinicHours) {
-            alert('Please fill all place fields');
-            return;
-        }
-
-        const editId = placeForm.dataset.editId; // Check if we are editing
-        const fd = new FormData();
-        
-        // Setup payload based on Add vs Update
-        if (editId) {
-            fd.append('action', 'update');
-            fd.append('place_id', editId);
-        } else {
-            fd.append('action', 'add');
-        }
-
-        fd.append('doctor_name', doctorName);
-        fd.append('clinic_address', clinicAddress);
-        fd.append('specialty', specialty);
-        fd.append('clinic_hours', clinicHours);
-        fd.append('location', location);
-
-        try {
-            const response = await fetch('places.php', { method: 'POST', body: fd, credentials: 'same-origin' });
-            const data = await response.json();
-
-            if (data && data.success) {
-                alert(editId ? 'Place updated!' : 'Place added!');
-                placeForm.reset();
-                delete placeForm.dataset.editId; // Reset form state
-                placeForm.querySelector('button[type="submit"]').textContent = 'Add Place';
-                clinicAddressSelect.innerHTML = '<option value="">-- Select Hospital/Clinic --</option>';
-                renderPlaces();
-            } else {
-                alert(data.message || 'Operation failed');
+            if (!hoursPattern.test(clinicHours)) {
+                alert('Clinic hours must match formats like "M-F 8-12" or "M 7-12" using day initials.');
+                return;
             }
-        } catch (err) {
-            console.error('Error:', err);
-        }
-    });
-}
+
+            if (!location || !doctorName || !clinicAddress || !specialty || !clinicHours) {
+                alert('Please fill all place fields');
+                return;
+            }
+
+            const editId = placeForm.dataset.editId; // Check if we are editing
+            const fd = new FormData();
+
+            // Setup payload based on Add vs Update
+            if (editId) {
+                fd.append('action', 'update');
+                fd.append('place_id', editId);
+            } else {
+                fd.append('action', 'add');
+            }
+
+            fd.append('doctor_name', doctorName);
+            fd.append('clinic_address', clinicAddress);
+            fd.append('specialty', specialty);
+            fd.append('clinic_hours', clinicHours);
+            fd.append('location', location);
+
+            try {
+                const response = await fetch('places.php', { method: 'POST', body: fd, credentials: 'same-origin' });
+                const data = await response.json();
+
+                if (data && data.success) {
+                    alert(editId ? 'Place updated!' : 'Place added!');
+                    placeForm.reset();
+                    delete placeForm.dataset.editId; // Reset form state
+                    placeForm.querySelector('button[type="submit"]').textContent = 'Add Place';
+                    clinicAddressSelect.innerHTML = '<option value="">-- Select Hospital/Clinic --</option>';
+                    renderPlaces();
+                } else {
+                    alert(data.message || 'Operation failed');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        });
+    }
 
     const clearBtn = document.getElementById('clearPlaces');
     if (clearBtn) {
@@ -805,7 +798,7 @@ if (placeLocationFilter) {
         const desc = clicked.getAttribute('data-desc') || '';
         const productImage = clicked.getAttribute('src') || '';
         const pdf = clicked.getAttribute('data-pdf') || '';
-        
+
         // If no additional images, use the current product image
         if (!images || images.length === 0) {
             images = [productImage];
@@ -816,7 +809,7 @@ if (placeLocationFilter) {
 
         function updateGalleryDisplay() {
             if (images.length === 0) return;
-            
+
             const img = gallery.querySelector('.gallery-image');
             const prevBtn = gallery.querySelector('.gallery-prev');
             const nextBtn = gallery.querySelector('.gallery-next');
@@ -834,7 +827,7 @@ if (placeLocationFilter) {
 
             gallery.querySelector('h3').textContent = title;
             gallery.querySelector('p').textContent = desc;
-            
+
             // Show download button only if PDF exists
             if (pdf) {
                 downloadBtn.href = pdf;

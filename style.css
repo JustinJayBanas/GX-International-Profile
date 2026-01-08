@@ -785,7 +785,11 @@ nav a {
     font-weight: bolder;
     
 }
-
+/* Add to style.css */
+.title-highlight {
+    color: rgb(35, 35, 255); /* Uses your existing blue color */
+    font-weight: 800;        /* Makes it extra bold */
+}
 .product-info {
     padding: 15px;
     display: flex;
