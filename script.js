@@ -60,15 +60,73 @@ document.addEventListener('DOMContentLoaded', () => {
         if (placesSec) placesSec.style.display = 'none';
 
         if (section === 'products') {
+            // --- PRODUCTS LIST WITH CUSTOM COLORS ---
+            // Edit the 'color' property below to change the parenthesis text color
             const products = [
-                { img: 'img/product 1.jpg', images: [], pdf: '', title: '(TELSTAR) Telmisartan 40mg / 80mg', desc: 'N/A' },
-                { img: 'img/product 2.jpg', images: ['img/ROVASTIN/1.jpg', 'img/ROVASTIN/2.jpg', 'img/ROVASTIN/3.jpg', 'img/ROVASTIN/4.jpg', 'img/ROVASTIN/5.jpg'], pdf: 'productspdf/ROVASTIN_DL.pdf', title: '(ROVASTIN) Rosuvastatin 10mg', desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.' },
-                { img: 'img/product 3.jpg', images: ['img/BETACARD/2.jpg', 'img/BETACARD/3.jpg', 'img/BETACARD/4.jpg'], pdf: 'productspdf/BETACARD_DL.pdf', title: '(BETACARD) Carvedilol 6.25mg / 25mg', desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.' },
-                { img: 'img/product 4.jpg', images: ['img/ANOION/1.jpg', 'img/ANOION/2.jpg', 'img/ANOION/3.jpg'], pdf: 'productspdf/ANOION.pdf', title: '(ANOION) Amiodarone Hydrochloride 200mg', desc: 'ANOION is a trusted, quality-assured, and affordable Amiodarone that helps patients with heart rhythm disorders stay in tune with life, offering over 18 years of proven efficacy and compliance support.' },
-                { img: 'img/product 5.jpg', images: [], pdf: '', title: '(AMLOTITAN) Amlodipine Losartan 5mg / 50mg, 5mg / 100mg', desc: 'N/A' },
-                { img: 'img/product 6.jpg', images: [], pdf: '', title: '(RILAXIA) Etoricoxib 120mg', desc: 'N/A' },
-                { img: 'img/product 7.jpg', images: ['img/PROTEK-GFR/1.jpg', 'img/PROTEK-GFR/2.jpg', 'img/PROTEK-GFR/3.jpg'], pdf: 'productspdf/PROTEK GFR_DL.pdf', title: '(PROTEK - GFR) Ketoanalogues + Essential Amino Acids', desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.' },
-                { img: 'img/TRYME MR.jpeg', images: ['img/TRYME_MR/1.jpg', 'img/TRYME_MR/2.jpg', 'img/TRYME_MR/3.jpg', 'img/TRYME_MR/4.jpg'], pdf: 'productspdf/TRYME MR_DL.pdf', title: '(TRYME MR) Trimetazidine HCl 35mg', desc: 'TRYME MR is the smart choice for angina management—quality-tested, bioequivalent, and affordable, helping patients save while ensuring effective heart support as the metabolic energizer of the heart.' }
+                { 
+                    img: 'img/product 1.jpg', 
+                    images: [], 
+                    pdf: '', 
+                    title: '(TELSTAR) Telmisartan 40mg / 80mg', 
+                    desc: 'N/A',
+                    color: '#1703f9ff' // Red
+                },
+                { 
+                    img: 'img/ROVASTIN/4.jpg', 
+                    images: ['img/ROVASTIN/1.jpg', 'img/ROVASTIN/2.jpg', 'img/ROVASTIN/3.jpg', 'img/ROVASTIN/4.jpg', 'img/ROVASTIN/5.jpg'], 
+                    pdf: 'productspdf/ROVASTIN_DL.pdf', 
+                    title: '(ROVASTIN) Rosuvastatin 10mg', 
+                    desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.',
+                    color: '#1703f9ff' // Green
+                },
+                { 
+                    img: 'img/BETACARD/4.jpg', 
+                    images: ['img/BETACARD/2.jpg', 'img/BETACARD/3.jpg', 'img/BETACARD/4.jpg'], 
+                    pdf: 'productspdf/BETACARD_DL.pdf', 
+                    title: '(BETACARD) Carvedilol 6.25mg / 25mg', 
+                    desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.',
+                    color: '#e67e22' // Blue
+                },
+                { 
+                    img: 'img/ANOION/3.jpg', 
+                    images: ['img/ANOION/1.jpg', 'img/ANOION/2.jpg', 'img/ANOION/3.jpg'], 
+                    pdf: 'productspdf/ANOION.pdf', 
+                    title: '(ANOION) Amiodarone Hydrochloride 200mg', 
+                    desc: 'ANOION is a trusted, quality-assured, and affordable Amiodarone that helps patients with heart rhythm disorders stay in tune with life, offering over 18 years of proven efficacy and compliance support.',
+                    color: '#318000ff' // Purple
+                },
+                { 
+                    img: 'img/product 5.jpg', 
+                    images: [], 
+                    pdf: '', 
+                    title: '(AMLOTITAN) Amlodipine Losartan 5mg / 50mg, 5mg / 100mg', 
+                    desc: 'N/A',
+                    color: '#1703f9ff' // Yellow
+                },
+                { 
+                    img: 'img/product 6.jpg', 
+                    images: [], 
+                    pdf: '', 
+                    title: '(RILAXIA) Etoricoxib 120mg', 
+                    desc: 'N/A',
+                    color: '#318000ff' // Orange
+                },
+                { 
+                    img: 'img/PROTEK-GFR/3.jpg', 
+                    images: ['img/PROTEK-GFR/1.jpg', 'img/PROTEK-GFR/2.jpg', 'img/PROTEK-GFR/3.jpg'], 
+                    pdf: 'productspdf/PROTEK GFR_DL.pdf', 
+                    title: '(PROTEK - GFR) Ketoanalogues + Essential Amino Acids', 
+                    desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.',
+                    color: '#e67e22' // Teal
+                },
+                { 
+                    img: 'img/TRYME MR.jpeg', 
+                    images: ['img/TRYME_MR/1.jpg', 'img/TRYME_MR/2.jpg', 'img/TRYME_MR/3.jpg', 'img/TRYME_MR/4.jpg'], 
+                    pdf: 'productspdf/TRYME MR_DL.pdf', 
+                    title: '(TRYME MR) Trimetazidine HCl 35mg', 
+                    desc: 'TRYME MR is the smart choice for angina management—quality-tested, bioequivalent, and affordable, helping patients save while ensuring effective heart support as the metabolic energizer of the heart.',
+                    color: '#d33f00ff' // Pumpkin
+                }
             ];
 
             const isMobile = window.innerWidth <= 768;
@@ -82,9 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const productContainer = document.getElementById('productContainer');
 
             // --- HELPER FUNCTION TO HIGHLIGHT PARENTHESES CONTENT ---
-            function formatTitle(title) {
+            // Now accepts a 'color' parameter to override the CSS default
+            function formatTitle(title, color) {
                 if (!title) return '';
                 
+                // If a color is provided, create an inline style string
+                const styleAttr = color ? `style="color: ${color} !important;"` : '';
+
                 // 1. Look for the closing parenthesis ')'
                 const closingParenIndex = title.indexOf(')');
                 
@@ -92,15 +154,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (closingParenIndex !== -1) {
                     const highlightPart = title.slice(0, closingParenIndex + 1);
                     const restPart = title.slice(closingParenIndex + 1);
-                    return `<span class="title-highlight">${highlightPart}</span>${restPart}`;
+                    return `<span class="title-highlight" ${styleAttr}>${highlightPart}</span>${restPart}`;
                 }
                 
                 // 3. Fallback: If no parenthesis, try splitting by space
                 const firstSpaceIndex = title.indexOf(' ');
                 if (firstSpaceIndex === -1) {
-                    return `<span class="title-highlight">${title}</span>`;
+                    return `<span class="title-highlight" ${styleAttr}>${title}</span>`;
                 }
-                return `<span class="title-highlight">${title.slice(0, firstSpaceIndex)}</span>${title.slice(firstSpaceIndex)}`;
+                return `<span class="title-highlight" ${styleAttr}>${title.slice(0, firstSpaceIndex)}</span>${title.slice(firstSpaceIndex)}`;
             }
             // --------------------------------------------------------
 
@@ -120,10 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="product-badges">${pdfBadge}${imgBadge}</div>
                     <img src="${p.img}" alt="${p.title}" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
                     
-                    <div class="product-hint" style="font-weight:bold;">${formatTitle(p.title)}</div>
+                    <div class="product-hint" style="font-weight:bold;">${formatTitle(p.title, p.color)}</div>
                     
                     <div class="product-info">
-                        <h4>${formatTitle(p.title)}</h4>
+                        <h4>${formatTitle(p.title, p.color)}</h4>
                         <p>${p.desc}</p>
                         ${downloadBtn}
                     </div>`;
@@ -157,10 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="product-badges">${pdfBadge}${imgBadge}</div>
                     <img src="${p.img}" alt="${p.title}" class="product-img" data-title="${p.title}" data-desc="${p.desc}" data-pdf="${p.pdf}" data-images="${JSON.stringify(p.images).replace(/"/g, '&quot;')}">
                     
-                    <div class="product-hint" style="font-weight:bold;">${formatTitle(p.title)}</div>
+                    <div class="product-hint" style="font-weight:bold;">${formatTitle(p.title, p.color)}</div>
                     
                     <div class="product-info">
-                        <h4>${formatTitle(p.title)}</h4>
+                        <h4>${formatTitle(p.title, p.color)}</h4>
                         <p>${p.desc}</p>
                         ${downloadBtn}
                     </div>`;
