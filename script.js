@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pdf: 'productspdf/ROVASTIN_DL.pdf', 
                     title: '(ROVASTIN) Rosuvastatin 10mg', 
                     desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.',
-                    color: '#1703f9ff' 
+                    color: '#0f00afff' 
                 },
                 { 
                     img: 'img/BETACARD/4.jpg', 
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pdf: '', 
                     title: '(AMLOTITAN) Amlodipine Losartan 5mg / 50mg, 5mg / 100mg', 
                     desc: 'N/A',
-                    color: '#1703f9ff' 
+                    color: '#ae9700ff' 
                 },
                 { 
                     img: 'img/product 6.jpg', 
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pdf: '', 
                     title: '(RILAXIA) Etoricoxib 120mg', 
                     desc: 'N/A',
-                    color: '#318000ff' 
+                    color: '#1a4300ff' 
                 },
                 { 
                     img: 'img/PROTEK-GFR/3.jpg', 
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pdf: 'productspdf/PROTEK GFR_DL.pdf', 
                     title: '(PROTEK - GFR) Ketoanalogues + Essential Amino Acids', 
                     desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.',
-                    color: '#e67e22' 
+                    color: '#6e00a9ff' 
                 },
                 { 
                     img: 'img/TRYME MR.jpeg', 
