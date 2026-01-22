@@ -6,6 +6,7 @@
     --text-main: #1e293b;
     --text-muted: #64748b;
     --white: #ffffff;
+    --gx-accent-blue: #002060
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
