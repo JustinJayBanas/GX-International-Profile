@@ -265,6 +265,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             renderPage();
+        } else if (section === 'about') {
+            // --- ABOUT SECTION (Matches image) ---
+            mainContent.innerHTML = `
+            <div class="mission-container">
+                <div class="mission-header">
+                    <h2>Mission and Vision</h2>
+                    <p class="mission-quote">"A Vision to seek for options, so that Quality treatment may not have to be expensive"</p>
+                    <p class="mission-author">- Rodolfo I. Gracia (GXI Founder)</p>
+                </div>
+
+                <div class="mission-grid">
+                    <div class="mission-item">
+                        <div class="mission-img-wrapper">
+                            <img src="img/mission_product.avif" alt="Neobloc Medicine">
+                        </div>
+                        <h3>Product Quality</h3>
+                        <p>With sincere efforts to uplift the well-being of each Filipino patient, GXI dedicates itself to provide quality yet affordable medicines in the field of cardiovascular, metabolic, respiratory, infectious, inflammatory and acid-related diseases, considered as leading causes of morbidity and mortality.</p>
+                    </div>
+
+                    <div class="mission-item">
+                        <div class="mission-img-wrapper">
+                            <img src="img/mission_founder.avif" alt="Rodolfo I. Gracia">
+                        </div>
+                        <h3>Core Mission</h3>
+                        <p>Through the years, GXI was able to prove in the medical community that medicines can be made affordable without compromise of quality. Only the finest grade of raw materials and finished products from reputable international suppliers are considered.</p>
+                    </div>
+
+                    <div class="mission-item">
+                        <div class="mission-img-wrapper">
+                            <img src="img/mission_culture.avif" alt="Filipino Art">
+                        </div>
+                        <h3>GX Atin Ito!<br><span class="text-red">Pusong</span> <span class="text-blue">Pilipino.</span></h3>
+                        <p>GXI values its people as the prime movers of sustained growth. Guided by the corporate norms and values, the GXI field force remains true advocates of the company's noble mission to serve more Filipino patients, most especially the economically-challenged ones.</p>
+                    </div>
+
+                    <div class="mission-item">
+                        <div class="mission-img-wrapper">
+                            <img src="img/mission_award.avif" alt="Awards and Partners">
+                        </div>
+                        <h3>Reputable Partners</h3>
+                        <p>At GX International, Inc., we take pride in collaborating with trusted and esteemed partners who share our commitment to excellence. Our reputable partners uphold the highest standards of quality, integrity, and innovation, ensuring that we deliver outstanding products and services to our valued clients.</p>
+                    </div>
+                </div>
+            </div>`;
         } else if (section === 'contacts') {
             mainContent.innerHTML = `
             <div class="card contact-card">
@@ -788,6 +832,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- TRIGGER DEFAULT PAGE ---
-    // Load products by default instead of the profile
+    // Load products by default
     updateContent('products');
 });

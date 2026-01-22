@@ -23,6 +23,7 @@
         <div class="nav-wrapper" id="navWrapper">
             <nav>
                 <a href="#" class="nav-link" data-section="profile">Profile</a>
+                <a href="#" class="nav-link" data-section="about">About</a>
                 <a href="#" class="nav-link" data-section="products">Products</a>
                 <a href="#" class="nav-link" data-section="contacts">Contacts</a>
                 <a href="places.html" class="nav-link">Places</a>
@@ -42,10 +43,9 @@
         </aside>
 
         <main id="mainContent">
-    </main>
+            </main>
     </div>
 
-    <!-- Place manager (moved out of main so nav swaps don't remove it) -->
     <div class="card" id="placesSection" style="display: none; max-width: 1200px; margin: 20px auto;">
         <h3>Place</h3>
         <p class="summary-text">Add and manage clinic places for doctors.</p>
@@ -86,25 +86,24 @@
         </form>
 
         <div id="placeListWrapper" style="margin-top:18px;">
-    <h4>Saved Places</h4>
-    
-    <div class="table-controls" style="margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-        <input type="text" id="placeListFilter" class="search-box" placeholder="Search doctor or specialty..." style="flex: 1; min-width: 200px;">
-        
-        <select id="placeLocationFilter" class="filter-select">
-            <option value="all">All Locations</option>
-            <option value="ALBAY TOWNS">ALBAY TOWNS</option>
-            <option value="LEGAZPI">LEGAZPI</option>
-            <option value="TABACO">TABACO</option>
-            <option value="CATANDUANES">CATANDUANES</option>
-        </select>
+            <h4>Saved Places</h4>
+            
+            <div class="table-controls" style="margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="placeListFilter" class="search-box" placeholder="Search doctor or specialty..." style="flex: 1; min-width: 200px;">
+                
+                <select id="placeLocationFilter" class="filter-select">
+                    <option value="all">All Locations</option>
+                    <option value="ALBAY TOWNS">ALBAY TOWNS</option>
+                    <option value="LEGAZPI">LEGAZPI</option>
+                    <option value="TABACO">TABACO</option>
+                    <option value="CATANDUANES">CATANDUANES</option>
+                </select>
+            </div>
+
+            <div id="placeList"></div>
+        </div>
     </div>
 
-    <div id="placeList"></div>
-</div>
-    </div>
-
-    <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
@@ -130,7 +129,6 @@
         </div>
     </div>
 
-    <!-- Sign Up Modal -->
     <div id="signupModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeSignupModal">&times;</span>
