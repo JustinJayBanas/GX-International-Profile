@@ -456,7 +456,7 @@ nav a {
     font-size: 13px;
 }
 
-.gallery-download-btn {
+/* .gallery-download-btn {
     display: inline-block;
     margin-top: 12px;
     background: var(--gx-accent);

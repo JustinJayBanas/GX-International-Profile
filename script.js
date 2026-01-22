@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 { 
                     img: 'img/ROVASTIN/4.jpg', 
-                    images: ['img/ROVASTIN/1.jpg', 'img/ROVASTIN/2.jpg', 'img/ROVASTIN/3.jpg', 'img/ROVASTIN/4.jpg', 'img/ROVASTIN/5.jpg'], 
+                    images: ['img/ROVASTIN/5.jpg'], 
                     pdf: 'productspdf/ROVASTIN_DL.pdf', 
                     title: '(ROVASTIN) Rosuvastatin 10mg', 
                     desc: 'ROVASTIN is the EPIC Rosuvastatin—effective, potent, quality-assured, affordable, and convenient—proven to significantly reduce cardiovascular risk while helping patients with dyslipidemia better comply with treatment.',
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 { 
                     img: 'img/BETACARD/4.jpg', 
-                    images: ['img/BETACARD/2.jpg', 'img/BETACARD/3.jpg', 'img/BETACARD/4.jpg'], 
+                    images: ['img/BETACARD/4.jpg'], 
                     pdf: 'productspdf/BETACARD_DL.pdf', 
                     title: '(BETACARD) Carvedilol 6.25mg / 25mg', 
                     desc: 'BETACARD (Carvedilol) is a trusted, bioequivalent beta-blocker proven to reduce morbidity and mortality in patients with Heart Failure and Hypertension, offering quality, efficacy, and affordability for improved patient compliance for over 17 years.',
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 { 
                     img: 'img/ANOION/3.jpg', 
-                    images: ['img/ANOION/1.jpg', 'img/ANOION/2.jpg', 'img/ANOION/3.jpg'], 
+                    images: ['img/ANOION/3.jpg'], 
                     pdf: 'productspdf/ANOION.pdf', 
                     title: '(ANOION) Amiodarone Hydrochloride 200mg', 
                     desc: 'ANOION is a trusted, quality-assured, and affordable Amiodarone that helps patients with heart rhythm disorders stay in tune with life, offering over 18 years of proven efficacy and compliance support.',
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 { 
                     img: 'img/PROTEK-GFR/3.jpg', 
-                    images: ['img/PROTEK-GFR/1.jpg', 'img/PROTEK-GFR/2.jpg', 'img/PROTEK-GFR/3.jpg'], 
+                    images: ['img/PROTEK-GFR/3.jpg'], 
                     pdf: 'productspdf/PROTEK GFR_DL.pdf', 
                     title: '(PROTEK - GFR) Ketoanalogues + Essential Amino Acids', 
                     desc: 'PROTEK GFR is an affordable ketoanalogues + ESA renal nutrition therapy that, together with a low-protein diet, helps slow CKD progression, improve patient compliance, and deliver significant monthly savings while protecting kidney function.',
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 { 
                     img: 'img/TRYME MR.jpeg', 
-                    images: ['img/TRYME_MR/1.jpg', 'img/TRYME_MR/2.jpg', 'img/TRYME_MR/3.jpg', 'img/TRYME_MR/4.jpg'], 
+                    images: ['img/TRYME_MR/4.jpg'], 
                     pdf: 'productspdf/TRYME MR_DL.pdf', 
                     title: '(TRYME MR) Trimetazidine HCl 35mg', 
                     desc: 'TRYME MR is the smart choice for angina management—quality-tested, bioequivalent, and affordable, helping patients save while ensuring effective heart support as the metabolic energizer of the heart.',
@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3></h3>
                         <p></p>
                         <div class="gallery-counter"></div>
-                        <a href="" class="gallery-download-btn" style="display:none;" download title="Download PDF">📥 Download PDF</a>
+                        <a href="" class="gallery-download-btn" style="display:none;" download title="Download PDF"></a>
                     </div>
                 </div>
             </div>`;
