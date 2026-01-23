@@ -6,7 +6,7 @@
     --text-main: #1e293b;
     --text-muted: #64748b;
     --white: #ffffff;
-    --gx-accent-blue: #002060
+    --gx-accent-blue: #002060;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,7 +19,7 @@ body {
 
 /* Header & Nav */
 header {
-    background: var(--white);
+    background: var(--gx-accent-blue);
     padding: 0 5%;
     height: 70px;
     display: flex;
@@ -33,7 +33,7 @@ header {
 
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo-img { width: 44px; height: auto; display: block; }
-.logo-text { font-weight: 800; font-size: 1.05rem; color: var(--gx-navy); }
+.logo-text { font-weight: 800; font-size: 1.05rem; color: var(--white); }
 
 .nav-wrapper { display: flex; align-items: center; gap: 30px; }
 
@@ -696,7 +696,7 @@ nav a {
         font-size: 11px;
     }
 }
-.menu-toggle span { width: 25px; height: 3px; background: var(--gx-navy); }
+.menu-toggle span { width: 25px; height: 3px; background: var(--white); }
 
 @media (max-width: 900px) {
     .container { grid-template-columns: 1fr; }
