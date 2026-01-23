@@ -747,6 +747,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="gallery-next" style="display:none;">❯</button>
                     <div class="img-gallery-info">
                         <h3></h3>
+                        <p></p>
                         <div class="gallery-counter"></div>
                         <a href="" class="gallery-download-btn" style="display:none;" download title="Download PDF"></a>
                     </div>
@@ -774,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const imagesJson = clicked.getAttribute('data-images') || '[]';
         let images = JSON.parse(imagesJson);
         const title = clicked.getAttribute('data-title') || '';
-        // Description unused in gallery
+        const desc = clicked.getAttribute('data-desc') || '';
         const productImage = clicked.getAttribute('src') || '';
         const pdf = clicked.getAttribute('data-pdf') || '';
 
@@ -800,7 +801,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nextBtn.disabled = currentImageIndex === images.length - 1;
             
             gallery.querySelector('h3').textContent = title;
-            // Removed description update
+            gallery.querySelector('p').textContent = desc; // RESTORED DESCRIPTION
 
             if (pdf) {
                 downloadBtn.href = pdf;
