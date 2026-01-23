@@ -19,7 +19,7 @@ body {
 
 /* Header & Nav */
 header {
-    background: var(--gx-accent-blue);
+    background: var(--white);
     padding: 0 5%;
     height: 70px;
     display: flex;
@@ -33,7 +33,7 @@ header {
 
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo-img { width: 44px; height: auto; display: block; }
-.logo-text { font-weight: 800; font-size: 1.05rem; color: var(--white); }
+.logo-text { font-weight: 800; font-size: 1.05rem; color: var(--gx-navy); }
 
 .nav-wrapper { display: flex; align-items: center; gap: 30px; }
 
@@ -696,7 +696,7 @@ nav a {
         font-size: 11px;
     }
 }
-.menu-toggle span { width: 25px; height: 3px; background: var(--white); }
+.menu-toggle span { width: 25px; height: 3px; background: var(--gx-navy); }
 
 @media (max-width: 900px) {
     .container { grid-template-columns: 1fr; }
