@@ -181,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="product-info">
                         <h4>${formatTitle(p.title, p.color)}</h4>
-                        <p>${p.desc}</p>
                         ${downloadBtn}
                     </div>`;
                     grid.appendChild(item);
@@ -218,7 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="product-info">
                         <h4>${formatTitle(p.title, p.color)}</h4>
-                        <p>${p.desc}</p>
                         ${downloadBtn}
                     </div>`;
                     grid.appendChild(item);
@@ -749,7 +747,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="gallery-next" style="display:none;">❯</button>
                     <div class="img-gallery-info">
                         <h3></h3>
-                        <p></p>
                         <div class="gallery-counter"></div>
                         <a href="" class="gallery-download-btn" style="display:none;" download title="Download PDF"></a>
                     </div>
@@ -777,7 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const imagesJson = clicked.getAttribute('data-images') || '[]';
         let images = JSON.parse(imagesJson);
         const title = clicked.getAttribute('data-title') || '';
-        const desc = clicked.getAttribute('data-desc') || '';
+        // Description unused in gallery
         const productImage = clicked.getAttribute('src') || '';
         const pdf = clicked.getAttribute('data-pdf') || '';
 
@@ -801,8 +798,9 @@ document.addEventListener('DOMContentLoaded', () => {
             nextBtn.style.display = images.length > 1 ? 'block' : 'none';
             prevBtn.disabled = currentImageIndex === 0;
             nextBtn.disabled = currentImageIndex === images.length - 1;
+            
             gallery.querySelector('h3').textContent = title;
-            gallery.querySelector('p').textContent = desc;
+            // Removed description update
 
             if (pdf) {
                 downloadBtn.href = pdf;
