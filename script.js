@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     images: [], 
                     pdf: '', 
                     title: '(TELSTAR) Telmisartan 40mg / 80mg', 
-                    desc: 'N/A',
+                    desc: 'Telmisartan (Telstar) is a safe, time-tested antihypertensive Angiotensin II Receptor Blocker available in 40mg and 80mg formulations. It provides effective, reliable blood pressure reduction over a 24-hour period and is an affordable treatment option.',
                     color: '#1703f9ff' 
                 },
                 { 
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     images: [], 
                     pdf: '', 
                     title: '(AMLOTITAN) Amlodipine Losartan 5mg / 50mg, 5mg / 100mg', 
-                    desc: 'N/A',
+                    desc: 'Amlotitan (Amlodipine + Losartan Potassium) is indicated for mild to moderate hypertension in cases of inadequate control with monotherapy. As the "Titan" of blood pressure control, it provides safe, reliable, and affordable efficacy in 5mg/50mg and 5mg/100mg tablets.',
                     color: '#ae9700ff' 
                 },
                 { 
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     images: [], 
                     pdf: '', 
                     title: '(RILAXIA) Etoricoxib 120mg', 
-                    desc: 'N/A',
+                    desc: 'Etoricoxib (Rilaxia) manages pain and inflammation associated with arthritis (OA, RA, AS, gout), chronic back pain, dysmenorrhea, and post-surgical recovery. As a selective COX-2 inhibitor, prescribing decisions require an assessment of individual patient risks.',
                     color: '#1a4300ff' 
                 },
                 { 
